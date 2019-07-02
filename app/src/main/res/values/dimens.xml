@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_height_answer">40dp</dimen>
+    <dimen name="margin_left">1dp</dimen>
+    <dimen name="margin_top">20dp</dimen>
+
+    <dimen name="width_height_suggest">36dp</dimen>
+</resources>

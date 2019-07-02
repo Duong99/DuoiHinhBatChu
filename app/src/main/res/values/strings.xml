@@ -1,0 +1,1504 @@
+<resources>
+    <string name="app_name">DuoiHinhBatChu</string>
+
+    <string-array name="array_image">
+        <item>comtruocnuocsau   </item>
+        <item>cohan	</item>
+        <item>tocto	</item>
+        <item>thuongnguyet	</item>
+        <item>thanleo	</item>
+        <item>sanhsoi	</item>
+        <item>raumuongbe	</item>
+        <item>oxygia	</item>
+        <item>ngaosoochen	</item>
+        <item>lobotrangrang	</item>
+        <item>landieu	</item>
+        <item>ketungnguoihung	</item>
+        <item>honghac	</item>
+        <item>haiduatre	</item>
+        <item>dinhdau	</item>
+
+        <item>
+	datphuongnam	</item>
+
+        <item>
+	cungbac	</item>
+
+        <item>
+	congtrinh	</item>
+
+        <item>
+	chuotkhongday	</item>
+
+        <item>
+	chieclacuoicung	</item>
+
+        <item>
+	caotrao	</item>
+
+        <item>
+	bongde	</item>
+
+        <item>
+	betong	</item>
+
+        <item>
+	batlontomgio	</item>
+
+        <item>
+	bacxiu	</item>
+
+        <item>
+	apphich	</item>
+
+        <item>
+	annovacnang	</item>
+
+        <item>
+	xephao	</item>
+
+        <item>
+	vanonvoluyen	</item>
+
+        <item>
+	tunghung	</item>
+
+        <item>
+	tuadenz	</item>
+
+        <item>
+	truongtho	</item>
+
+        <item>
+	tranhsonthuy	</item>
+
+        <item>
+	tocmuoitieu	</item>
+
+        <item>
+	tienco	</item>
+
+        <item>
+	thuongtangkientruc	</item>
+
+        <item>
+	thuocdanggiatat	</item>
+
+        <item>
+	thongthuong	</item>
+
+        <item>
+	tenbaydanlac	</item>
+
+        <item>
+	taykhongbatgiac	</item>
+
+        <item>
+	taodo	</item>
+
+        <item>
+	sonho	</item>
+
+        <item>
+	soden	</item>
+
+        <item>
+	ongbapcay	</item>
+
+        <item>
+	nhaoc	</item>
+
+        <item>
+	nguoitinhkhongbangtr	</item>
+
+        <item>
+	nguanonhauda	</item>
+
+        <item>
+	motsach	</item>
+
+        <item>
+	motrangdaybe	</item>
+
+        <item>
+	momat	</item>
+
+        <item>
+	maybaybagia	</item>
+
+        <item>
+	lyky	</item>
+
+        <item>
+	loxe	</item>
+
+        <item>
+	longao	</item>
+
+        <item>
+	lennhudieugapgio	</item>
+
+        <item>
+	lachau	</item>
+
+        <item>
+	hyxa	</item>
+
+        <item>
+	huyenbi	</item>
+
+        <item>
+	hokhoan	</item>
+
+        <item>
+	hoihuong	</item>
+
+        <item>
+	hoavan	</item>
+
+        <item>
+	hoatamthat	</item>
+
+        <item>
+	hoasi	</item>
+
+        <item>
+	mienghumgansua	</item>
+
+        <item>
+	gannhaxango	</item>
+
+        <item>
+	doikentihon	</item>
+
+        <item>
+	diavi	</item>
+
+        <item>
+	daumay	</item>
+
+        <item>
+	daithienvan	</item>
+
+        <item>
+	daidong	</item>
+
+        <item>
+	dacap	</item>
+
+        <item>
+	dabao	</item>
+
+        <item>
+	cothu	</item>
+
+        <item>
+	conhan	</item>
+
+        <item>
+	congviennuoc	</item>
+
+        <item>
+	congnghecao	</item>
+
+        <item>
+	congdu	</item>
+
+        <item>
+	comthuacanhcan	</item>
+
+        <item>
+	codong	</item>
+
+        <item>
+	codia	</item>
+
+        <item>
+	chimse	</item>
+
+        <item>
+	caybachchi	</item>
+
+        <item>
+	bongsenvang	</item>
+
+        <item>
+	binhduong	</item>
+
+        <item>
+	bienbaoduong	</item>
+
+        <item>
+	biada	</item>
+
+        <item>
+	belai	</item>
+
+        <item>
+	battom	</item>
+
+        <item>
+	bantrungtimden	</item>
+
+        <item>
+	bangchucai	</item>
+
+        <item>
+	bancong	</item>
+
+        <item>
+	ytu	</item>
+
+        <item>
+	ythich	</item>
+
+        <item>
+	yta	</item>
+
+        <item>
+	yeuot	</item>
+
+        <item>
+	yeukieu	</item>
+
+        <item>
+	yenbinh	</item>
+
+        <item>
+	yamaha	</item>
+
+        <item>
+	xuongrong	</item>
+
+        <item>
+	xuhuong	</item>
+
+        <item>
+	xomuop	</item>
+
+        <item>
+	xichlo	</item>
+
+        <item>
+	xemtuong	</item>
+
+        <item>
+	xehoa	</item>
+
+        <item>
+	xauho	</item>
+
+        <item>
+	xalan	</item>
+
+        <item>
+	xadon	</item>
+
+        <item>
+	xabong	</item>
+
+        <item>
+	votu	</item>
+
+        <item>
+	voihoasen	</item>
+
+        <item>
+	voco	</item>
+
+        <item>
+	tutung	</item>
+
+        <item>
+	tuongtuong	</item>
+
+        <item>
+	tuongthich	</item>
+
+        <item>
+	tuongdai	</item>
+
+        <item>
+	tungtang	</item>
+
+        <item>
+	tumu	</item>
+
+        <item>
+	tubi	</item>
+
+        <item>
+	tuantrangmat	</item>
+
+        <item>
+	tuanhanh	</item>
+
+        <item>
+	trungtuong	</item>
+
+        <item>
+	trungbinhtan	</item>
+
+        <item>
+	trieukien	</item>
+
+        <item>
+	traumong	</item>
+
+        <item>
+	tranhsondau	</item>
+
+        <item>
+	tranhcuop	</item>
+
+        <item>
+	traiphieu	</item>
+
+        <item>
+	traicam	</item>
+
+        <item>
+	totbung	</item>
+
+        <item>
+	toiky	</item>
+
+        <item>
+	toikien	</item>
+
+        <item>
+	toihauthu	</item>
+
+        <item>
+	tite	</item>
+
+        <item>
+	tinhtruong	</item>
+
+        <item>
+	tinhtao	</item>
+
+        <item>
+	tinhso	</item>
+
+        <item>
+	tinhhoa	</item>
+
+        <item>
+	tinhluoc	</item>
+
+        <item>
+	tinhco	</item>
+
+        <item>
+	tieuthuong	</item>
+
+        <item>
+	tiennhan	</item>
+
+        <item>
+	tiendao	</item>
+
+        <item>
+	thutuong	</item>
+
+        <item>
+	thuthat	</item>
+
+        <item>
+	thuocla	</item>
+
+        <item>
+	thucongmynghe	</item>
+
+        <item>
+	thongtan	</item>
+
+        <item>
+	thongle	</item>
+
+        <item>
+	thoihan	</item>
+
+        <item>
+	thieutuong	</item>
+
+        <item>
+	thieuta	</item>
+
+        <item>
+	thieunien	</item>
+
+        <item>
+	thientai	</item>
+
+        <item>
+	thiensu	</item>
+
+        <item>
+	thiennga	</item>
+
+        <item>
+	thienduong	</item>
+
+        <item>
+	thichthu	</item>
+
+        <item>
+	thattruyen	</item>
+
+        <item>
+	thatkinh	</item>
+
+        <item>
+	thankhoc	</item>
+
+        <item>
+	thanhchi	</item>
+
+        <item>
+	thangthung	</item>
+
+        <item>
+	thanghoa	</item>
+
+        <item>
+	thamhoa	</item>
+
+        <item>
+	thaido	</item>
+
+        <item>
+	thachcao	</item>
+
+        <item>
+	tenlua	</item>
+
+        <item>
+	taytrang	</item>
+
+        <item>
+	tatyeu	</item>
+
+        <item>
+	taotau	</item>
+
+        <item>
+	taomeo	</item>
+
+        <item>
+	taobon	</item>
+
+        <item>
+	tangca	</item>
+
+        <item>
+	tanduong	</item>
+
+        <item>
+	tancong	</item>
+
+        <item>
+	tamtoi	</item>
+
+        <item>
+	taihoa	</item>
+
+        <item>
+	sotroi	</item>
+
+        <item>
+	sothonghanh	</item>
+
+        <item>
+	somui	</item>
+
+        <item>
+	sodaohoa	</item>
+
+        <item>
+	saunang	</item>
+
+        <item>
+	saobang	</item>
+
+        <item>
+	sansoc	</item>
+
+        <item>
+	samsung	</item>
+
+        <item>
+	saisach	</item>
+
+        <item>
+	ruatien	</item>
+
+        <item>
+	quytac	</item>
+
+        <item>
+	quycu	</item>
+
+        <item>
+	quychup	</item>
+
+        <item>
+	quychuan	</item>
+
+        <item>
+	quantam	</item>
+
+        <item>
+	quanham	</item>
+
+        <item>
+	quanco	</item>
+
+        <item>
+	quabao	</item>
+
+        <item>
+	phuchau	</item>
+
+        <item>
+	phongkhong	</item>
+
+        <item>
+	phico	</item>
+
+        <item>
+	phaokich	</item>
+
+        <item>
+	phanbo	</item>
+
+        <item>
+	otrong	</item>
+
+        <item>
+	ongbau	</item>
+
+        <item>
+	omai	</item>
+
+        <item>
+	obama	</item>
+
+        <item>
+	nutthatcochai	</item>
+
+        <item>
+	nuocducbeoco	</item>
+
+        <item>
+	noithat	</item>
+
+        <item>
+	noigian	</item>
+
+        <item>
+	nhosi	</item>
+
+        <item>
+	nhonho	</item>
+
+        <item>
+	nhica	</item>
+
+        <item>
+	nhachoctroi	</item>
+
+        <item>
+	nhaphanlo	</item>
+
+        <item>
+	nhaong	</item>
+
+        <item>
+	nhantu	</item>
+
+        <item>
+	nhantien	</item>
+
+        <item>
+	nhanhieu	</item>
+
+        <item>
+	nhanduc	</item>
+
+        <item>
+	nhancau	</item>
+
+        <item>
+	nhahat	</item>
+
+        <item>
+	nhagiao	</item>
+
+        <item>
+	nhaga	</item>
+
+        <item>
+	nhaccu	</item>
+
+        <item>
+	ngucoc	</item>
+
+        <item>
+	nguao	</item>
+
+        <item>
+	nghesinhandan	</item>
+
+        <item>
+	ngangu	</item>
+
+        <item>
+	neodon	</item>
+
+        <item>
+	nemdagiautay	</item>
+
+        <item>
+	nanglong	</item>
+
+        <item>
+	mytam	</item>
+
+        <item>
+	mynhanngu	</item>
+
+        <item>
+	muinhon	</item>
+
+        <item>
+	mucanhchuon	</item>
+
+        <item>
+	muabongmay	</item>
+
+        <item>
+	moitruong	</item>
+
+        <item>
+	matuy	</item>
+
+        <item>
+	matma	</item>
+
+        <item>
+	matkhau	</item>
+
+        <item>
+	manocanh	</item>
+
+        <item>
+	mangdidong	</item>
+
+        <item>
+	mamanh	</item>
+
+        <item>
+	maimoi	</item>
+
+        <item>
+	mahoa	</item>
+
+        <item>
+	maclua	</item>
+
+        <item>
+	macarong	</item>
+
+        <item>
+	macao	</item>
+
+        <item>
+	lybiet	</item>
+
+        <item>
+	luudan	</item>
+
+        <item>
+	luoile	</item>
+
+        <item>
+	luclac	</item>
+
+        <item>
+	luacuakeoxe	</item>
+
+        <item>
+	longlangdathu	</item>
+
+        <item>
+	longbong	</item>
+
+        <item>
+	linhlienlac	</item>
+
+        <item>
+	lichthiep	</item>
+
+        <item>
+	langthang	</item>
+
+        <item>
+	laca	</item>
+
+        <item>
+	laban	</item>
+
+        <item>
+	kyvi	</item>
+
+        <item>
+	kythu	</item>
+
+        <item>
+	kinhhoang	</item>
+
+        <item>
+	kinhdo	</item>
+
+        <item>
+	kiemtien	</item>
+
+        <item>
+	kichdong	</item>
+
+        <item>
+	khotam	</item>
+
+        <item>
+	khongkich	</item>
+
+        <item>
+	khoanhong	</item>
+
+        <item>
+	kencachoncanh	</item>
+
+        <item>
+	hutchankhong	</item>
+
+        <item>
+	hungthu	</item>
+
+        <item>
+	hoikien	</item>
+
+        <item>
+	hoicung	</item>
+
+        <item>
+	hoga	</item>
+
+        <item>
+	hoclienthong	</item>
+
+        <item>
+	hoclech	</item>
+
+        <item>
+	hocduong	</item>
+
+        <item>
+	hocbua	</item>
+
+        <item>
+	hoavang	</item>
+
+        <item>
+	hoaquason	</item>
+
+        <item>
+	hoangthat	</item>
+
+        <item>
+	hoami	</item>
+
+        <item>
+	hoamat	</item>
+
+        <item>
+	hoaluc	</item>
+
+        <item>
+	hoale	</item>
+
+        <item>
+	hoahau	</item>
+
+        <item>
+	hinhbinhhanh	</item>
+
+        <item>
+	heohut	</item>
+
+        <item>
+	hatnhan	</item>
+
+        <item>
+	hasi	</item>
+
+        <item>
+	haohung	</item>
+
+        <item>
+	hanhlang	</item>
+
+        <item>
+	hanhhoa	</item>
+
+        <item>
+	hanhha	</item>
+
+        <item>
+	hangngu	</item>
+
+        <item>
+	hailong	</item>
+
+        <item>
+	haclao	</item>
+
+        <item>
+	guongchieuhau	</item>
+
+        <item>
+	gokien	</item>
+
+        <item>
+	giocaosu	</item>
+
+        <item>
+	giaybac	</item>
+
+        <item>
+	giatrentroi	</item>
+
+        <item>
+	giaotranh	</item>
+
+        <item>
+	giaothong	</item>
+
+        <item>
+	giantiep	</item>
+
+        <item>
+	giaima	</item>
+
+        <item>
+	gauquan	</item>
+
+        <item>
+	epcung	</item>
+
+        <item>
+	ebay	</item>
+
+        <item>
+	duongxichdao	</item>
+
+        <item>
+	duongcai	</item>
+
+        <item>
+	dongdang	</item>
+
+        <item>
+	dongcamcongkho	</item>
+
+        <item>
+	dongcam	</item>
+
+        <item>
+	dongbao	</item>
+
+        <item>
+	dondoc	</item>
+
+        <item>
+	doncataitu	</item>
+
+        <item>
+	doiso	</item>
+
+        <item>
+	dinhcao	</item>
+
+        <item>
+	daxoay	</item>
+
+        <item>
+	dautranh	</item>
+
+        <item>
+	dauthu	</item>
+
+        <item>
+	dausi	</item>
+
+        <item>
+	daugio	</item>
+
+        <item>
+	daugau	</item>
+
+        <item>
+	data	</item>
+
+        <item>
+	daphop	</item>
+
+        <item>
+	daotobualon	</item>
+
+        <item>
+	daonguoc	</item>
+
+        <item>
+	daongu	</item>
+
+        <item>
+	danhgiaplaca	</item>
+
+        <item>
+	dalua	</item>
+
+        <item>
+	daituong	</item>
+
+        <item>
+	dainhan	</item>
+
+        <item>
+	dailungtonvai	</item>
+
+        <item>
+	dagiac	</item>
+
+        <item>
+	dacuoi	</item>
+
+        <item>
+	cuuvan	</item>
+
+        <item>
+	cuutunhatsinh	</item>
+
+        <item>
+	cuphap	</item>
+
+        <item>
+	cungcau	</item>
+
+        <item>
+	congty	</item>
+
+        <item>
+	congtrai	</item>
+
+        <item>
+	congcong	</item>
+
+        <item>
+	congbo	</item>
+
+        <item>
+	coloa	</item>
+
+        <item>
+	cohoi	</item>
+
+        <item>
+	cocua	</item>
+
+        <item>
+	cocon	</item>
+
+        <item>
+	cocacola	</item>
+
+        <item>
+	cobap	</item>
+
+        <item>
+	chotreomeoday	</item>
+
+        <item>
+	chithi	</item>
+
+        <item>
+	chiso	</item>
+
+        <item>
+	chimsonca	</item>
+
+        <item>
+	chimsacalan	</item>
+
+        <item>
+	chimatdatten	</item>
+
+        <item>
+	chihuy	</item>
+
+        <item>
+	chiencong	</item>
+
+        <item>
+	chidiem	</item>
+
+        <item>
+	chantuong	</item>
+
+        <item>
+	caytrai	</item>
+
+        <item>
+	caumay	</item>
+
+        <item>
+	cauhon	</item>
+
+        <item>
+	caugio	</item>
+
+        <item>
+	caucu	</item>
+
+        <item>
+	cauco	</item>
+
+        <item>
+	catinh	</item>
+
+        <item>
+	caokien	</item>
+
+        <item>
+	caohoc	</item>
+
+        <item>
+	caobiet	</item>
+
+        <item>
+	cannao	</item>
+
+        <item>
+	canhtranh	</item>
+
+        <item>
+	canhdong	</item>
+
+        <item>
+	cangua	</item>
+
+        <item>
+	candauvan	</item>
+
+        <item>
+	canbang	</item>
+
+        <item>
+	camket	</item>
+
+        <item>
+	camchan	</item>
+
+        <item>
+	camcannaymuc	</item>
+
+        <item>
+	caico	</item>
+
+        <item>
+	cadao	</item>
+
+        <item>
+	cachim	</item>
+
+        <item>
+	cacao	</item>
+
+        <item>
+	bongda	</item>
+
+        <item>
+	bitruyen	</item>
+
+        <item>
+	bithu	</item>
+
+        <item>
+	biquan	</item>
+
+        <item>
+	binhma	</item>
+
+        <item>
+	binhhoadidong	</item>
+
+        <item>
+	binhchannhuvai	</item>
+
+        <item>
+	bikich	</item>
+
+        <item>
+	bihai	</item>
+
+        <item>
+	bienhieu	</item>
+
+        <item>
+	bicao	</item>
+
+        <item>
+	bibach	</item>
+
+        <item>
+	bachimbaynoi	</item>
+
+        <item>
+	batloi	</item>
+
+        <item>
+	batcoc	</item>
+
+        <item>
+	baphai	</item>
+
+        <item>
+	baotu	</item>
+
+        <item>
+	baothuc	</item>
+
+        <item>
+	baotay	</item>
+
+        <item>
+	baongu	</item>
+
+        <item>
+	baomong	</item>
+
+        <item>
+	baola	</item>
+
+        <item>
+	baohanh	</item>
+
+        <item>
+	baogia	</item>
+
+        <item>
+	bankinh	</item>
+
+        <item>
+	banhtrai	</item>
+
+        <item>
+	banhquy	</item>
+
+        <item>
+	bandao	</item>
+
+        <item>
+	bamoi	</item>
+
+        <item>
+	bamiengmotloi	</item>
+
+        <item>
+	balo	</item>
+
+        <item>
+	baixich	</item>
+
+        <item>
+	baibac	</item>
+
+        <item>
+	bahoa	</item>
+
+        <item>
+	badausautay	</item>
+
+        <item>
+	bactinh	</item>
+
+        <item>
+	bachthu	</item>
+
+        <item>
+	bachcau	</item>
+
+        <item>
+	auyem	</item>
+
+        <item>
+	antieu	</item>
+
+        <item>
+	anhhao	</item>
+
+        <item>
+	homcongduc	</item>
+
+        <item>
+	anmay	</item>
+
+        <item>
+	xedapdien	</item>
+
+        <item>
+	xaphong	</item>
+
+        <item>
+	xakep	</item>
+
+        <item>
+	vuonbachthu	</item>
+
+        <item>
+	vuaphaluoi	</item>
+
+        <item>
+	tranhthu	</item>
+
+        <item>
+	thothe	</item>
+
+        <item>
+	thattinh	</item>
+
+        <item>
+	totien	</item>
+
+        <item>
+	tohoai	</item>
+
+        <item>
+	tichphan	</item>
+
+        <item>
+	quyhang	</item>
+
+        <item>
+	oto	</item>
+
+        <item>
+	masat	</item>
+
+        <item>
+	lancan	</item>
+
+        <item>
+	langben	</item>
+
+        <item>
+	kiemchuyen	</item>
+
+        <item>hongtam	</item>
+
+        <item>hoidong	</item>
+
+        <item>giangmai	</item>
+
+        <item>giandiep	</item>
+
+        <item>danong	</item>
+
+        <item>danhlua	</item>
+
+        <item>canthiep	</item>
+
+        <item>baocao	</item>
+
+        <item>aomua	</item>
+
+        <item>
+	nambancau	</item>
+
+        <item>
+	chieutre	</item>
+
+        <item>
+	bangiay	</item>
+
+        <item>
+	binhquan	</item>
+
+        <item>
+	candongho	</item>
+
+        <item>
+	caolui	</item>
+
+        <item>
+	caosaovang	</item>
+
+        <item>
+	cauket	</item>
+
+        <item>
+	caycomnguoi	</item>
+
+        <item>
+	chuoingu	</item>
+
+        <item>
+	chuotbach	</item>
+
+        <item>
+	comaogaotien	</item>
+
+        <item>
+	conglao	</item>
+
+        <item>
+	coquan	</item>
+
+        <item>
+	cuathoathiem	</item>
+
+        <item>
+	dauluotvan	</item>
+
+        <item>
+	denhinh	</item>
+
+        <item>
+	deple	</item>
+
+        <item>
+	epgia	</item>
+
+        <item>
+	garangmuoi	</item>
+
+        <item>
+	gaxiem	</item>
+
+        <item>
+	giado	</item>
+
+        <item>
+	giaymoi	</item>
+
+        <item>
+	giaytrangmucden	</item>
+
+        <item>
+	giodan	</item>
+
+        <item>
+	goimay	</item>
+
+        <item>
+	hauduong	</item>
+
+        <item>
+	hoabao	</item>
+
+        <item>
+	hutthuoc	</item>
+
+        <item>
+	kemtron	</item>
+
+        <item>
+	kienthiet	</item>
+
+        <item>
+	lola	</item>
+
+        <item>
+	lonbot	</item>
+
+        <item>
+	lythu	</item>
+
+        <item>
+	matnasuibot	</item>
+
+        <item>
+	ngannap	</item>
+
+        <item>
+	ocung	</item>
+
+        <item>
+	quatcay	</item>
+
+        <item>
+	quatconcoc	</item>
+
+        <item>
+	quaylo	</item>
+
+        <item>
+	sangkien	</item>
+
+        <item>
+	saomoc	</item>
+
+        <item>
+	trabidao	</item>
+
+        <item>
+	trumso	</item>
+
+        <item>
+	vetdia	</item>
+
+        <item>
+	xanhlo	</item>
+
+        <item>
+	xechi	</item>
+
+        <item>
+	xemay	</item>
+
+        <item>
+	ycu	</item>
+
+
+    </string-array>
+
+    <string-array name="array_alphabest_english">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+        <item>i</item>
+        <item>j</item>
+        <item>k</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>w</item>
+        <item>x</item>
+        <item>y</item>
+        <item>z</item>
+    </string-array>
+</resources>
