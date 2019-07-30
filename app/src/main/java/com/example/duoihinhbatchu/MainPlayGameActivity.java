@@ -141,8 +141,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
              idHinh = getResources().getIdentifier(imageListPlay.get(idMan - 2), "drawable", getPackageName());
         }
 
-
-
         imv.setBackgroundResource(idHinh);
 
         frameLayout = findViewById(R.id.frameLayout);
@@ -274,6 +272,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         myDatabase = new MyDatabase(this);
 
         imageListPlay = new ArrayList<>();
+
         String[] nameListPlay = getResources().getStringArray(R.array.array_image);
         imageListPlay = new ArrayList<>(Arrays.asList(nameListPlay));
 
