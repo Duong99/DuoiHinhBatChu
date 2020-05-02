@@ -2,6 +2,7 @@ package com.example.duoihinhbatchu;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.duoihinhbatchu.database.MyDatabase;
-import com.example.duoihinhbatchu.service.MyService;
 
-import java.util.Map;
-import java.util.Set;
+import com.example.duoihinhbatchu.database.MyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,22 +38,18 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("onoffmusic", MODE_PRIVATE);
         music = sharedPreferences.getInt("music", 1);
 
-        Intent intent = new Intent(MainActivity.this, MyService.class);
-
-        if(music == 1){
-            btnMusicPlay.setText("Tắt Nhạc");
-            startService(intent);
-        }
-        if(music == 0){
-            btnMusicPlay.setText("Bật Nhạc");
-            stopService(intent);
-        }
     }
 
     public void onclickPlay(View view) {
         Intent intent = new Intent(MainActivity.this, MainPlayGameActivity.class);
         startActivity(intent);
-
+//        View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+//        Screenshot screenshot = new Screenshot(this);
+//        Bitmap bitmap = screenshot.getScreenShot(view);
+//        if (3 > 2){
+//
+//        }
+//        Toast.makeText(screenshot, "", Toast.LENGTH_SHORT).show();
     }
 
     public void onClickMusicPlay(View view) {

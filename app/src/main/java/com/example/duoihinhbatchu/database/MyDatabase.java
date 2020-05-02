@@ -39,10 +39,10 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public List<Question> getQuestionDB(int id){
+    public Question getQuestionDB(int id){
         db = this.getReadableDatabase();
 
-        List<Question> questions = new ArrayList<>();
+        Question question = null;
 
         String select = "SELECT * FROM question where id = " + id;
 
@@ -50,16 +50,15 @@ public class MyDatabase extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do {
-                Question question = new Question();
-                question.setContent(cursor.getString(1));
-                question.setGiaiNghia(cursor.getString(2));
-                question.setOk(cursor.getInt(3));
-                questions.add(question);
+                question = new Question(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3));
 
             }while (cursor.moveToNext());
         }
 
-        return questions;
+        return question;
     }
 
     private boolean checkdatabase() {
@@ -86,7 +85,6 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     private void copyDatabase() throws IOException {
-
         db = this.getWritableDatabase();
         AssetManager dirPath = context.getAssets();
         InputStream myInput = context.getAssets().open("databases/" + DB_NAME);

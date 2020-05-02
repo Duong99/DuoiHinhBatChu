@@ -27,7 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class MainPlayGameActivity extends AppCompatActivity implements AnswerLetter.OnClickAnswer, SuggestLetter.OnClickSuggestLetter {
+public class MainPlayGameActivity extends AppCompatActivity implements AnswerLetter.OnClickAnswer,
+        SuggestLetter.OnClickSuggestLetter {
 
     private final int NUMBER_O_ANSWER_IN_LINE = 8;
     private final int NUMBER_0_SUGGEST_IN_LINE = 10;
@@ -36,12 +37,11 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     private FrameLayout frameLayout;
 
     private List<Integer> imageListAnswer;
-    private List<String> anphabestList;
-    private List<String> ramdonAnphabestList;
+    private List<String> twentyAlphabet;
     private List<AnswerLetter> answerLetterList;
     private List<SuggestLetter> suggestLetterList;
     private List<String> imageListPlay;
-    private List<Question> questionList;
+    private Question question;
 
     private MyDatabase myDatabase;
 
@@ -66,7 +66,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         setContentView(R.layout.activity_main_play_game);
 
-        anhXa();
+        init();
 
         sharedPreferences = getSharedPreferences("mandiemplay", MODE_PRIVATE);
 
@@ -81,72 +81,20 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtMan.setText(String.valueOf(idMan));
         txtDiem.setText(String.valueOf(diemPlay));
 
-        questionList = myDatabase.getQuestionDB(idMan);
-        createButonFrame(questionList.get(0));
+        question = myDatabase.getQuestionDB(idMan);
+        createButtonFrame(question);
     }
 
-    private List<String> ramdomAnphabest(Question question) {
-        ramdonAnphabestList = new ArrayList<>();
-
-        String[] nameListAnphabest = getResources().getStringArray(R.array.array_alphabest_english);
-        anphabestList = new ArrayList<>(Arrays.asList(nameListAnphabest));
-
-        int position = -1;
-
-        // Ramdom ra 20 chữ cái ngẫu nhiên trong list chữa cái anphabestList
-        for (int i = 0; i < 20; i++) {
-            position = new Random().nextInt(26);
-            ramdonAnphabestList.add(anphabestList.get(position));
-        }
-
-        char a='a';
-        int length = question.getContent().length();
-        int count = 0;
-        String text;
-        List<Integer> numberList = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
-            text = String.valueOf(question.getContent().charAt(i));
-            count = 0;
-            position = new Random().nextInt(20);
-
-            if (i == 0) {
-                ramdonAnphabestList.remove(position);
-                ramdonAnphabestList.add(position, text);
-                numberList.add(position);
-            } else {
-                for (int j = 0; j < numberList.size(); j++) {
-                    if (position != numberList.get(j)) {
-                        count++;
-                    } else {
-                        count = 0;
-                        i--;
-                        break;
-                    }
-                }
-                if (count == numberList.size()) {
-                    ramdonAnphabestList.remove(position);
-                    ramdonAnphabestList.add(position, text);
-                    numberList.add(position);
-                }
-            }
-        }
-
-        return ramdonAnphabestList;
-    }
-
-    private void createButonFrame(Question question) {
+    private void createButtonFrame(Question question) {
         int idHinh = getResources().getIdentifier(imageListPlay.get(idMan - 1), "drawable", getPackageName());
-
-        if(idMan > 44){
-             idHinh = getResources().getIdentifier(imageListPlay.get(idMan - 2), "drawable", getPackageName());
-        }
 
         imv.setBackgroundResource(idHinh);
 
         frameLayout = findViewById(R.id.frameLayout);
         answerLetterList = new ArrayList<>();
         createListImageButtom();
-        ramdomAnphabest(questionList.get(0));
+        twentyAlphabet = new ArrayList<>();
+        twentyAlphabet = new RandomAlphabet().returnTwentyAlphabet(question, this);
 
         int length = question.getContent().length();
         int btnWidhtHeight = getResources().getDimensionPixelOffset(R.dimen.width_height_answer);
@@ -199,7 +147,8 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             SuggestLetter btn = new SuggestLetter(this, this);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
             suggestLetterList.add(btn);
-            btn.setText(ramdonAnphabestList.get(i));
+            btn.setText(twentyAlphabet.get(i));
+
             btn.setTextColor(Color.GREEN);
             btn.setBackgroundResource(imageListAnswer.get(3));
             if (i < 10) {
@@ -259,16 +208,15 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         checkTrueFalseResult();
     }
 
-    private void anhXa() {
-        txtDiem = (TextView) findViewById(R.id.txtDiemPlay);
-        txtMan= (TextView) findViewById(R.id.txtDiemHelp);
-        imv = (ImageView) findViewById(R.id.imvPlay);
-        btnBoQua = (Button) findViewById(R.id.btnBoQua);
-        btnCauTiep = (Button) findViewById(R.id.btnCauTiep);
+    private void init() {
+        txtDiem =  findViewById(R.id.txtDiemPlay);
+        txtMan=  findViewById(R.id.txtDiemHelp);
+        imv =  findViewById(R.id.imvPlay);
+        btnBoQua =  findViewById(R.id.btnBoQua);
+        btnCauTiep =  findViewById(R.id.btnCauTiep);
 
         btnCauTiep.setVisibility(View.INVISIBLE);
 
-        questionList = new ArrayList<>();
         myDatabase = new MyDatabase(this);
 
         imageListPlay = new ArrayList<>();
@@ -308,8 +256,8 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         frameLayout.removeAllViews();
 
         luuManDiemPlay();
-        questionList = myDatabase.getQuestionDB(idMan);
-        createButonFrame(questionList.get(0));
+        question = myDatabase.getQuestionDB(idMan);
+        createButtonFrame(question);
     }
 
     public void onclickDiem(View view) {
@@ -317,13 +265,13 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             for(int i=0; i<answerLetterList.size(); i++){
                 // Hiện thị chữ cái gợi ý ra
                 if(answerLetterList.get(i).getText() == ""){
-                    answerLetterList.get(i).setText(String.valueOf(questionList.get(0).getContent().charAt(i)));
+                    answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
                     answerLetterList.get(i).setTextColor(Color.BLACK);
                     answerLetterList.get(i).setEnabled(false);
 
                     // Tìm chưa cái gợi ý ở suggestLetterList rồi ẩn nói đi
                     for(int j=0; j<suggestLetterList.size(); j++){
-                        if(suggestLetterList.get(j).getText().toString().equals(String.valueOf(questionList.get(0).getContent().charAt(i)))){
+                        if(suggestLetterList.get(j).getText().toString().equals(String.valueOf(question.getContent().charAt(i)))){
                             suggestLetterList.get(j).setVisibility(View.INVISIBLE);
                             answerLetterList.get(i).setAnswer(suggestLetterList.get(j)); // Thêm vào list câu trả lời
 
@@ -352,9 +300,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 idMan += 1;
-                if(idMan == 44){
-                    idMan += 1;
-                }
                 quaCau();
                 luuManDiemPlay();
             }
@@ -362,34 +307,10 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
+            public void onClick(DialogInterface dialog, int which) {}
         });
 
         builder.show();
-    }
-
-    private void dialogGiaiNghia(){
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.giai_nghia);
-
-        dialog.setCanceledOnTouchOutside(false);
-
-        final TextView txtOK = (TextView) dialog.findViewById(R.id.txtOK);
-        TextView txtGiaiNghia = (TextView) dialog.findViewById(R.id.txtGiaiNghia);
-
-        txtOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtOK.setBackgroundColor(Color.GREEN);
-                dialog.cancel();
-            }
-        });
-
-        txtGiaiNghia.setText(questionList.get(0).getGiaiNghia());
-        dialog.show();
     }
 
     private void checkTrueFalseResult(){
@@ -415,18 +336,9 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 anwserThey += answerLetterList.get(i).getText();
             }
 
-            if (anwserThey.equals(questionList.get(0).getContent())) {
+            if (anwserThey.equals(question.getContent())) {
 
-                /*
-                for(AnswerLetter answerLetter: answerLetterList){
-                    answerLetter.setVisibility(View.INVISIBLE);
-                }
-
-                for(SuggestLetter suggestLetter : suggestLetterList){
-                    suggestLetter.setVisibility(View.INVISIBLE);
-                }
-                */
-                dialogGiaiNghia();
+                new ShowDialogExplain(this, question);
 
                 btnBoQua.setVisibility(View.INVISIBLE);
                 btnCauTiep.setVisibility(View.VISIBLE);
@@ -436,9 +348,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
                 idMan += 1;
 
-                if(idMan == 44){
-                    idMan +=1;
-                }
                 diemPlay += 10;
 
                 txtDiem.setText(String.valueOf(diemPlay));
@@ -448,8 +357,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 }
 
                 txtDiem.setEnabled(false);
-
-
 
                 luuManDiemPlay();
 
