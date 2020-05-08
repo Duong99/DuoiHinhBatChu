@@ -1,7 +1,6 @@
-package com.example.duoihinhbatchu;
+package com.example.duoihinhbatchu.main;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,15 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duoihinhbatchu.PlayMusic;
+import com.example.duoihinhbatchu.R;
+import com.example.duoihinhbatchu.RandomAlphabetQuestion;
+import com.example.duoihinhbatchu.Screenshot;
+import com.example.duoihinhbatchu.ShowDialogExplain;
 import com.example.duoihinhbatchu.database.MyDatabase;
 import com.example.duoihinhbatchu.model.Question;
 import com.example.duoihinhbatchu.view.AnswerLetter;
 import com.example.duoihinhbatchu.view.SuggestLetter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class MainPlayGameActivity extends AppCompatActivity implements AnswerLetter.OnClickAnswer,
         SuggestLetter.OnClickSuggestLetter {
@@ -36,25 +38,23 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     private FrameLayout frameLayout;
 
-    private List<Integer> imageListAnswer;
     private List<String> twentyAlphabet;
     private List<AnswerLetter> answerLetterList;
     private List<SuggestLetter> suggestLetterList;
-    private List<String> imageListPlay;
     private Question question;
 
     private MyDatabase myDatabase;
+    private boolean music = false;
 
     private TextView txtMan, txtDiem;
     private ImageView imv;
     private Button btnBoQua, btnCauTiep;
 
-    private int idMan = 1;
+    private int idMan = -1, man = 1;
     private int diemPlay = 20;
-    private AnswerLetter btnAnwer;
-
+    private AnswerLetter btnAnswer;
+    private RandomAlphabetQuestion raq;
     private SharedPreferences sharedPreferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,35 +68,39 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         init();
 
-        sharedPreferences = getSharedPreferences("mandiemplay", MODE_PRIVATE);
+        raq = new RandomAlphabetQuestion(this);
+        sharedPreferences = getSharedPreferences("MuiscManDiem", MODE_PRIVATE);
 
-        idMan = sharedPreferences.getInt("man", idMan);
+        man = sharedPreferences.getInt("man", man);
+        idMan = sharedPreferences.getInt("idman", idMan);
         diemPlay = sharedPreferences.getInt("diem", diemPlay);
+        music = sharedPreferences.getBoolean("music", false);
 
-        if(idMan == 504){
-            Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
-            startActivity(intent);
-        }
-
-        txtMan.setText(String.valueOf(idMan));
+        txtMan.setText(String.valueOf(man));
         txtDiem.setText(String.valueOf(diemPlay));
 
-        question = myDatabase.getQuestionDB(idMan);
+        if (idMan == -1){
+            question = raq.returnQuestion();
+        }else {
+            question = myDatabase.getQuestionDB(idMan);
+        }
+
         createButtonFrame(question);
     }
 
     private void createButtonFrame(Question question) {
-        int idHinh = getResources().getIdentifier(imageListPlay.get(idMan - 1), "drawable", getPackageName());
+        int idHinh = getResources().getIdentifier(question.getContent(), "drawable",
+                getPackageName());
 
         imv.setBackgroundResource(idHinh);
 
         frameLayout = findViewById(R.id.frameLayout);
         answerLetterList = new ArrayList<>();
-        createListImageButtom();
         twentyAlphabet = new ArrayList<>();
-        twentyAlphabet = new RandomAlphabet().returnTwentyAlphabet(question, this);
+        twentyAlphabet = new RandomAlphabetQuestion(this)
+                .returnTwentyAlphabet(question, this);
 
-        int length = question.getContent().length();
+        int length = question.getContent().length(); // Độ dài đáp án
         int btnWidhtHeight = getResources().getDimensionPixelOffset(R.dimen.width_height_answer);
         int btnMarginLeft = getResources().getDimensionPixelOffset(R.dimen.margin_left);
         int btnMarginTop = getResources().getDimensionPixelOffset(R.dimen.margin_top);
@@ -107,15 +111,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         // Tạo nút cho câu trả lời
         for (int i = 0; i < length; i++) {
-
-            btnAnwer = new AnswerLetter(this, String.valueOf(question.getContent().charAt(i)), this);
+            btnAnswer = new AnswerLetter(this, String.valueOf(question.getContent().charAt(i)), this);
 
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
 
-            answerLetterList.add(btnAnwer);
+            answerLetterList.add(btnAnswer);
 
-            btnAnwer.setTextColor(Color.BLUE);
-            btnAnwer.setBackgroundResource(imageListAnswer.get(2));
+            btnAnswer.setTextColor(Color.BLUE);
+            btnAnswer.setBackgroundResource(R.drawable.ic_anwser);
             if (i < 8) {
                 int lengthText = length > NUMBER_O_ANSWER_IN_LINE ? NUMBER_O_ANSWER_IN_LINE : length;
 
@@ -133,7 +136,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             }
 
             layoutParams.setMargins(marginScreenLeft, marginScreenTop, 0, 0);
-            frameLayout.addView(btnAnwer, layoutParams);
+            frameLayout.addView(btnAnswer, layoutParams);
         }
 
         for(AnswerLetter answerLetter : answerLetterList){
@@ -150,7 +153,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             btn.setText(twentyAlphabet.get(i));
 
             btn.setTextColor(Color.GREEN);
-            btn.setBackgroundResource(imageListAnswer.get(3));
+            btn.setBackgroundResource(R.drawable.ic_tile_hover);
             if (i < 10) {
                 marginScreenLeft = (widthScreen - ((NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft - 1) +
                         (btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE))) / 2 +
@@ -174,19 +177,11 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         }
     }
 
-    private void createListImageButtom() {
-        imageListAnswer = new ArrayList<>();
-        imageListAnswer.add(R.drawable.ic_tile_false); // 0 trả lời sai
-        imageListAnswer.add(R.drawable.ic_tile_true); // 1 trả lời đúng
-        imageListAnswer.add(R.drawable.ic_anwser); // 2 button trên
-        imageListAnswer.add(R.drawable.ic_tile_hover); // 3 button duoi
-    }
-
     @Override
     public void onClickAnswer(SuggestLetter suggestLetter) {
         // Thay đổi backgound button khi kích vào list button câu trả lời
         for (AnswerLetter answerLetter : answerLetterList) {
-            answerLetter.setBackgroundResource(imageListAnswer.get(2));
+            answerLetter.setBackgroundResource(R.drawable.ic_anwser);
         }
 
         for (SuggestLetter suggestLetter1: suggestLetterList){
@@ -219,11 +214,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         myDatabase = new MyDatabase(this);
 
-        imageListPlay = new ArrayList<>();
-
-        String[] nameListPlay = getResources().getStringArray(R.array.array_image);
-        imageListPlay = new ArrayList<>(Arrays.asList(nameListPlay));
-
         txtDiem.setText(String.valueOf(diemPlay));
         txtMan.setText(String.valueOf(idMan));
     }
@@ -233,31 +223,22 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     }
 
     public void onClickCauTiep(View view) {
-        quaCau();
+        quaCau(question);
     }
 
-    private void quaCau() {
+    private void quaCau(Question question) {
+        frameLayout.removeAllViews();
         btnCauTiep.setVisibility(View.INVISIBLE);
         btnBoQua.setVisibility(View.VISIBLE);
         txtDiem.setEnabled(true);
-
-        //idMan = 504;
-        if(idMan == 504){
+        txtMan.setText(String.valueOf(man));
+        if (question == null){
             Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
             startActivity(intent);
+        }else {
+            luuManDiemPlay();
+            createButtonFrame(question);
         }
-
-        txtMan.setText(String.valueOf(idMan));
-
-        if(idMan > 44){
-            txtMan.setText(String.valueOf(idMan-1));
-        }
-
-        frameLayout.removeAllViews();
-
-        luuManDiemPlay();
-        question = myDatabase.getQuestionDB(idMan);
-        createButtonFrame(question);
     }
 
     public void onclickDiem(View view) {
@@ -286,7 +267,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 }
             }
         }
-
         checkTrueFalseResult();
     }
 
@@ -299,8 +279,9 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                idMan += 1;
-                quaCau();
+                man += 1;
+                question = raq.returnQuestion();
+                quaCau(question);
                 luuManDiemPlay();
             }
         });
@@ -328,7 +309,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         if(count == answerLetterList.size()){
 
             for (SuggestLetter suggestLetter: suggestLetterList){
-                suggestLetter.setEnabled(false);        // Không cho bấm vào button suggestLetter nữa
+                suggestLetter.setEnabled(false);  // Không cho bấm vào button suggestLetter nữa
             }
             String anwserThey = "";
 
@@ -337,37 +318,45 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             }
 
             if (anwserThey.equals(question.getContent())) {
+                if (music){
+                    new PlayMusic(this, R.raw.dung);
+                }
+
+                for (AnswerLetter answerTrue : answerLetterList) {
+                    answerTrue.setBackgroundResource(R.drawable.ic_tile_true);
+                }
+
+                Toast.makeText(this, "Đáp án đúng rồi :)", Toast.LENGTH_SHORT).show();
+                btnBoQua.setVisibility(View.INVISIBLE);
+                btnCauTiep.setVisibility(View.VISIBLE);
+
+                // Cần phải kiểm tra quền
+                Screenshot screen = new Screenshot(this);
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                screen.addScreenShotInDB(String.valueOf(man), rootView);
 
                 new ShowDialogExplain(this, question);
 
-                btnBoQua.setVisibility(View.INVISIBLE);
-                btnCauTiep.setVisibility(View.VISIBLE);
-                for (AnswerLetter answerTrue : answerLetterList) {
-                    answerTrue.setBackgroundResource(imageListAnswer.get(1));
-                }
-
-                idMan += 1;
-
                 diemPlay += 10;
-
                 txtDiem.setText(String.valueOf(diemPlay));
+                man ++;
+                txtDiem.setEnabled(false);
+                question = raq.returnQuestion();
+                idMan = question.getId();
+                luuManDiemPlay();
 
                 for (AnswerLetter answerLetter : answerLetterList) {
                     answerLetter.setEnabled(false);
                 }
 
-                txtDiem.setEnabled(false);
-
-                luuManDiemPlay();
-
-                //btnCauTiep.setVisibility(View.VISIBLE);
-
-                Toast.makeText(this, "Đáp án đúng rồi :)", Toast.LENGTH_SHORT).show();
             } else {
                 for (AnswerLetter answerFalse : answerLetterList) {
-                    answerFalse.setBackgroundResource(imageListAnswer.get(0));
+                    answerFalse.setBackgroundResource(R.drawable.ic_tile_false);
                 }
-                btnAnwer.setBackgroundResource(imageListAnswer.get(0));
+                btnAnswer.setBackgroundResource(R.drawable.ic_tile_false);
+                if (music){
+                    new PlayMusic(this, R.raw.sai);
+                }
                 Toast.makeText(this, "Đáp án sai rồi :(", Toast.LENGTH_SHORT).show();
             }
         }
@@ -375,8 +364,9 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     private void luuManDiemPlay(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("man", idMan);
+        editor.putInt("idman", question.getId());
         editor.putInt("diem", diemPlay);
+        editor.putInt("man", man);
         editor.commit();
     }
 }

@@ -13,14 +13,6 @@ public class SuggestLetter extends AppCompatButton {
         init(onClickSuggestLetter);
     }
 
-    public SuggestLetter(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public SuggestLetter(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
     public interface OnClickSuggestLetter{
         void onClickSuggest(SuggestLetter suggestLetter);
     }

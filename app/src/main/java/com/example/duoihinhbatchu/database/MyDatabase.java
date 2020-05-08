@@ -1,5 +1,6 @@
 package com.example.duoihinhbatchu.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -22,7 +23,8 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private String DB_PATH = "data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
-    private static String DB_NAME ="dhbc.db";
+    private final static String DB_NAME ="dhbc.db";
+    private final static String TABLE_QUESTION = "Question";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
 
@@ -36,7 +38,36 @@ public class MyDatabase extends SQLiteOpenHelper {
             System.out.println("Database doesn't exist!");
             createDatabase();
         }
+    }
 
+    public void updateQuestion(Question question){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id" , question.getId());
+        values.put("content", question.getContent());
+        values.put("giainghia", question.getGiaiNghia());
+        values.put("ok", 1);
+        db.update(TABLE_QUESTION, values, "id = ?",
+                new String[]{String.valueOf(question.getId())});
+        db.close();
+    }
+
+    public ArrayList<Question> getQuestionOk(int ok){
+        db = this.getReadableDatabase();
+        ArrayList<Question> questions = new ArrayList<>();
+        String select = "SELECT * FROM question where ok = " + ok;
+        Cursor cursor = db.rawQuery(select, null);
+        if (cursor.moveToFirst()){
+            do {
+                Question question = new Question(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3));
+                questions.add(question);
+            }while (cursor.moveToNext());
+        }
+        db.close();
+        return questions;
     }
 
     public Question getQuestionDB(int id){
@@ -44,7 +75,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
         Question question = null;
 
-        String select = "SELECT * FROM question where id = " + id;
+        String select = "SELECT * FROM "+ TABLE_QUESTION + " where id = " + id;
 
         Cursor cursor = db.rawQuery(select, null);
 
@@ -57,7 +88,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
             }while (cursor.moveToNext());
         }
-
+        db.close();
         return question;
     }
 

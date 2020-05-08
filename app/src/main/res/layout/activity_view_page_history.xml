@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.Winner">
+    tools:context=".main.ViewPageHistoryActivity">
 
-    <ImageView
-        android:src="@drawable/win"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>

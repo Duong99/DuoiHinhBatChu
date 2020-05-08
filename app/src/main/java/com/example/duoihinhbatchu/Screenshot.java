@@ -13,10 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.duoihinhbatchu.database.DBHistory;
+import com.example.duoihinhbatchu.model.History;
+
+import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Screenshot extends AppCompatActivity {
     private final static int CODE_PERMISSION = 111;
+    private Context mContext;
 
     public Screenshot(Context context){
+        this.mContext = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                 // Permission denied request it
@@ -39,11 +48,24 @@ public class Screenshot extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public Bitmap getScreenShot(View view){
+    private Bitmap getScreenShot(View view){
         View screenView = view.getRootView();
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
         screenView.setDrawingCacheEnabled(false);
         return bitmap;
+    }
+
+    public void addScreenShotInDB(String id, View rootView){
+        Bitmap bitmap = getScreenShot(rootView);
+
+        Date calendar = Calendar.getInstance().getTime();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+        bitmap.recycle();
+        DBHistory db = new DBHistory(mContext);
+        db.addImageHistory(new History(id, String.valueOf(calendar), image));
     }
 }

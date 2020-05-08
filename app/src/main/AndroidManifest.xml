@@ -2,35 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.duoihinhbatchu">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/duoihinhbatchu"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Winner"></activity>
-
-        <activity android:name=".MainPlayGameActivity"
+        <activity android:name=".main.ViewPageHistoryActivity"
+            android:theme="@style/noactionbar"></activity>
+        <activity
+            android:name=".main.ViewHistoryActivity" />
+        <activity android:name=".main.Winner" />
+        <activity
+            android:name=".main.MainPlayGameActivity"
             android:label="@string/app_name"
-            android:theme="@style/noactionbar"/>
-
-        <activity android:name=".MainActivity"
+            android:theme="@style/noactionbar" />
+        <activity
+            android:name=".main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/noactionbar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-
-
     </application>
 
 </manifest>

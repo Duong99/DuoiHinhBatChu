@@ -1,7 +1,9 @@
-package com.example.duoihinhbatchu;
+package com.example.duoihinhbatchu.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.duoihinhbatchu.R;
 
 public class Winner extends AppCompatActivity {
 
