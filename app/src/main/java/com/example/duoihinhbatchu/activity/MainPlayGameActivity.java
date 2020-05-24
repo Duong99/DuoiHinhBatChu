@@ -1,9 +1,11 @@
-package com.example.duoihinhbatchu.main;
+package com.example.duoihinhbatchu.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPlayGameActivity extends AppCompatActivity implements AnswerLetter.OnClickAnswer,
-        SuggestLetter.OnClickSuggestLetter {
+        SuggestLetter.OnClickSuggestLetter, View.OnClickListener {
 
     private final int NUMBER_O_ANSWER_IN_LINE = 8;
     private final int NUMBER_0_SUGGEST_IN_LINE = 10;
@@ -48,7 +50,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     private TextView txtMan, txtDiem;
     private ImageView imv;
-    private Button btnBoQua, btnCauTiep;
+    private Button btnBoQua, btnCauTiep, btnScreenshot, btnExplain;
 
     private int idMan = -1, man = 1;
     private int diemPlay = 20;
@@ -80,7 +82,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtDiem.setText(String.valueOf(diemPlay));
 
         if (idMan == -1){
-            question = raq.returnQuestion();
+            randomQuesion();
         }else {
             question = myDatabase.getQuestionDB(idMan);
         }
@@ -113,7 +115,8 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         for (int i = 0; i < length; i++) {
             btnAnswer = new AnswerLetter(this, String.valueOf(question.getContent().charAt(i)), this);
 
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
+            FrameLayout.LayoutParams layoutParams = new
+                    FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
 
             answerLetterList.add(btnAnswer);
 
@@ -207,10 +210,18 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtDiem =  findViewById(R.id.txtDiemPlay);
         txtMan=  findViewById(R.id.txtDiemHelp);
         imv =  findViewById(R.id.imvPlay);
+
         btnBoQua =  findViewById(R.id.btnBoQua);
         btnCauTiep =  findViewById(R.id.btnCauTiep);
+        btnExplain =  findViewById(R.id.btnExplain);
+        btnScreenshot =  findViewById(R.id.btnScreenshot);
 
-        btnCauTiep.setVisibility(View.INVISIBLE);
+        btnCauTiep.setOnClickListener(this);
+        btnBoQua.setOnClickListener(this);
+        btnExplain.setOnClickListener(this);
+        btnScreenshot.setOnClickListener(this);
+
+        showOffBtn(View.INVISIBLE);
 
         myDatabase = new MyDatabase(this);
 
@@ -218,17 +229,15 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtMan.setText(String.valueOf(idMan));
     }
 
-    public void onClickBoQua(View view) {
-        dialogBoQua();
-    }
-
-    public void onClickCauTiep(View view) {
-        quaCau(question);
+    private void showOffBtn(int visibility){
+        btnCauTiep.setVisibility(visibility);
+        btnScreenshot.setVisibility(visibility);
+        btnExplain.setVisibility(visibility);
     }
 
     private void quaCau(Question question) {
         frameLayout.removeAllViews();
-        btnCauTiep.setVisibility(View.INVISIBLE);
+        showOffBtn(View.INVISIBLE);
         btnBoQua.setVisibility(View.VISIBLE);
         txtDiem.setEnabled(true);
         txtMan.setText(String.valueOf(man));
@@ -236,7 +245,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
             startActivity(intent);
         }else {
-            luuManDiemPlay();
             createButtonFrame(question);
         }
     }
@@ -258,8 +266,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
                             diemPlay += -5;
                             txtDiem.setText(String.valueOf(diemPlay));
-
-                            luuManDiemPlay();
                             break;
                         }
                     }
@@ -280,9 +286,8 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 man += 1;
-                question = raq.returnQuestion();
+                randomQuesion();
                 quaCau(question);
-                luuManDiemPlay();
             }
         });
 
@@ -311,13 +316,16 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             for (SuggestLetter suggestLetter: suggestLetterList){
                 suggestLetter.setEnabled(false);  // Không cho bấm vào button suggestLetter nữa
             }
-            String anwserThey = "";
+
+            String answerThey = "";
 
             for (int i = 0; i < answerLetterList.size(); i++) {
-                anwserThey += answerLetterList.get(i).getText();
+                answerThey += answerLetterList.get(i).getText();
             }
 
-            if (anwserThey.equals(question.getContent())) {
+            if (answerThey.equals(question.getContent())) {
+                btnBoQua.setVisibility(View.INVISIBLE);
+                showOffBtn(View.VISIBLE);
                 if (music){
                     new PlayMusic(this, R.raw.dung);
                 }
@@ -327,23 +335,10 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 }
 
                 Toast.makeText(this, "Đáp án đúng rồi :)", Toast.LENGTH_SHORT).show();
-                btnBoQua.setVisibility(View.INVISIBLE);
-                btnCauTiep.setVisibility(View.VISIBLE);
-
-                // Cần phải kiểm tra quền
-                Screenshot screen = new Screenshot(this);
-                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                screen.addScreenShotInDB(String.valueOf(man), rootView);
-
-                new ShowDialogExplain(this, question);
-
                 diemPlay += 10;
                 txtDiem.setText(String.valueOf(diemPlay));
-                man ++;
                 txtDiem.setEnabled(false);
-                question = raq.returnQuestion();
-                idMan = question.getId();
-                luuManDiemPlay();
+                man ++;
 
                 for (AnswerLetter answerLetter : answerLetterList) {
                     answerLetter.setEnabled(false);
@@ -353,7 +348,8 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 for (AnswerLetter answerFalse : answerLetterList) {
                     answerFalse.setBackgroundResource(R.drawable.ic_tile_false);
                 }
-                btnAnswer.setBackgroundResource(R.drawable.ic_tile_false);
+
+                //btnAnswer.setBackgroundResource(R.drawable.ic_tile_false);
                 if (music){
                     new PlayMusic(this, R.raw.sai);
                 }
@@ -362,11 +358,88 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         }
     }
 
-    private void luuManDiemPlay(){
+    private void saveLevel(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("idman", question.getId());
         editor.putInt("diem", diemPlay);
         editor.putInt("man", man);
         editor.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (btnCauTiep.getVisibility() == View.VISIBLE){
+            randomQuesion();
+        }
+        saveLevel();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (btnCauTiep.getVisibility() == View.VISIBLE){
+            randomQuesion();
+        }
+        saveLevel();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnBoQua:
+                dialogBoQua();
+                break;
+            case R.id.btnCauTiep:
+                randomQuesion();
+                quaCau(question);
+                break;
+            case R.id.btnScreenshot:
+                showOffBtn(View.INVISIBLE);
+                final Screenshot screen = new Screenshot(this);
+                final View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+
+                screen.getScreenShot(rootView);
+                final Dialog dialog = new Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_screenshot);
+
+                ImageView imvScreen = dialog.findViewById(R.id.imvScreenshot);
+                Button btnCancel = dialog.findViewById(R.id.btnCancelScreenshot);
+                Button btnSave = dialog.findViewById(R.id.btnSaveScreenshot);
+
+                final Bitmap bitmap = screen.getScreenShot(rootView);
+                imvScreen.setImageBitmap(bitmap);
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        screen.addScreenShotInDB(String.valueOf(question.getId()), bitmap, rootView);
+                        Toast.makeText(MainPlayGameActivity.this, "Save Successfully",
+                                Toast.LENGTH_SHORT).show();
+                        showOffBtn(View.VISIBLE);
+                        btnScreenshot.setVisibility(View.INVISIBLE);
+                        dialog.cancel();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showOffBtn(View.VISIBLE);
+                        dialog.cancel();
+                    }
+                });
+
+                dialog.show();
+                break;
+            case R.id.btnExplain:
+                new ShowDialogExplain(this, question);
+                break;
+        }
+    }
+
+    private void randomQuesion(){
+        question = raq.returnQuestion();
     }
 }

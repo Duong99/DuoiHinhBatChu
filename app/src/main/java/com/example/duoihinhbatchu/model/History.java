@@ -2,17 +2,12 @@ package com.example.duoihinhbatchu.model;
 
 public class History {
     private String id;
-    private String time;
     private byte[] image;
     public History(){}
 
-    public String getTime() {
-        return time;
-    }
 
-    public History(String id, String time, byte[] image) {
+    public History(String id,  byte[] image) {
         this.id = id;
-        this.time = time;
         this.image = image;
     }
 

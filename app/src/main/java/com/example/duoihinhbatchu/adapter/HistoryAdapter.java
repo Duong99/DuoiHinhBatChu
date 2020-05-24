@@ -3,10 +3,12 @@ package com.example.duoihinhbatchu.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import android.widget.ImageView;
 
 import com.example.duoihinhbatchu.R;
@@ -39,17 +41,32 @@ public class HistoryAdapter extends BaseAdapter {
         return i;
     }
 
+    public class ViewHolder{
+        ImageView imvHistoryVictory;
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.gridview_list_history, null);
-        }
-        ImageView imvHistoryVictory = view.findViewById(R.id.imvHistoryVictory);
-        History history = histories.get(i);
-        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(history.getImage());
-        Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
-        imvHistoryVictory.setImageBitmap(bitmap);
+        final ViewHolder holder ;
 
+        if (view == null){
+            holder = new ViewHolder();
+            view = LayoutInflater.from(context).inflate(R.layout.gridview_list_history, null);
+            holder.imvHistoryVictory = view.findViewById(R.id.imvHistoryVictory);
+            view.setTag(holder);
+        }else {
+            holder = (ViewHolder) view.getTag();
+
+            final History history = histories.get(i);
+            ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(history.getImage());
+            Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
+            holder.imvHistoryVictory.setImageBitmap(bitmap);
+
+        }
         return view;
+    }
+
+    public void removePositionData(int position){
+        histories.remove(position);
     }
 }

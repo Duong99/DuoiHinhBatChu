@@ -1,6 +1,5 @@
-package com.example.duoihinhbatchu.main;
+package com.example.duoihinhbatchu.activity;
 
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.WindowManager;
 import com.example.duoihinhbatchu.R;
 import com.example.duoihinhbatchu.adapter.ViewPagerApdater;
 import com.example.duoihinhbatchu.database.DBHistory;
-import com.example.duoihinhbatchu.database.MyDatabase;
 import com.example.duoihinhbatchu.model.History;
 
 import java.util.ArrayList;

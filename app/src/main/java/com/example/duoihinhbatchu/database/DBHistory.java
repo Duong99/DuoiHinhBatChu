@@ -9,14 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.duoihinhbatchu.model.History;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class DBHistory extends SQLiteOpenHelper {
     private final static String NAMEDB = "History.db";
 
     private final static String NAMETABLE = "History";
     private final static String id = "id";
-    private final static String time = "time";
     private final static String image = "image";
 
     private SQLiteDatabase db;
@@ -29,7 +28,7 @@ public class DBHistory extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql = "CREATE TABLE IF NOT EXISTS " +
-                NAMETABLE + " ( " + id + " TEXT PRIMARY KEY, " + time + " TEXT, " + image + " BLOB )";
+                NAMETABLE + " ( " + id + " TEXT PRIMARY KEY, " + image + " BLOB )";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -37,9 +36,14 @@ public class DBHistory extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(id, h.getId());
-        values.put(time, h.getTime());
         values.put(image, h.getImage());
         db.insert(NAMETABLE, null, values);
+        db.close();
+    }
+
+    public void deleteImageHistory(String idImage){
+        db = this.getWritableDatabase();
+        db.delete(NAMETABLE, id + " = ?", new String[]{idImage});
         db.close();
     }
 
@@ -52,11 +56,9 @@ public class DBHistory extends SQLiteOpenHelper {
             do {
                 History h = new History(
                         cursor.getString(0),
-                        cursor.getString(1),
-                        cursor.getBlob(2)
+                        cursor.getBlob(1)
                 );
                 histories.add(h);
-
             }while (cursor.moveToNext());
         }
         db.close();

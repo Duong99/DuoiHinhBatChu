@@ -1,13 +1,11 @@
-package com.example.duoihinhbatchu.main;
+package com.example.duoihinhbatchu.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -16,7 +14,6 @@ import com.example.duoihinhbatchu.adapter.HistoryAdapter;
 import com.example.duoihinhbatchu.database.DBHistory;
 import com.example.duoihinhbatchu.model.History;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class ViewHistoryActivity extends AppCompatActivity {
@@ -42,6 +39,31 @@ public class ViewHistoryActivity extends AppCompatActivity {
             gridView.setAdapter(adapter);
         }
 
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int position, long l) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewHistoryActivity.this);
+                builder.setTitle("Thông báo");
+                builder.setMessage("Bạn có muốn xóa ảnh này không");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.deleteImageHistory(histories.get(position).getId());
+                        adapter.removePositionData(position);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {}
+                });
+
+                builder.show();
+                return false;
+            }
+        });
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -49,5 +71,6 @@ public class ViewHistoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }

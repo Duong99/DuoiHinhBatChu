@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DuoiHinhBatChu</string>
+    <string name="app_name">Đuổi Hình Bắt Chữ Hay Nhất 2020</string>
     <string-array name="array_alphabet_english">
         <item>a</item>
         <item>b</item>

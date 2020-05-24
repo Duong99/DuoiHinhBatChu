@@ -2,7 +2,7 @@ package com.example.duoihinhbatchu;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -48,7 +48,7 @@ public class Screenshot extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private Bitmap getScreenShot(View view){
+    public Bitmap getScreenShot(View view){
         View screenView = view.getRootView();
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
@@ -56,16 +56,20 @@ public class Screenshot extends AppCompatActivity {
         return bitmap;
     }
 
-    public void addScreenShotInDB(String id, View rootView){
-        Bitmap bitmap = getScreenShot(rootView);
+    public void addScreenShotInDB(String id, Bitmap bitmap, View rootView){
+        //Bitmap bitmap = getScreenShot(rootView);
 
-        Date calendar = Calendar.getInstance().getTime();
+        View screenView = rootView.getRootView();
+        screenView.setDrawingCacheEnabled(true);
+        bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+        screenView.setDrawingCacheEnabled(false);
+
+        //Date calendar = Calendar.getInstance().getTime();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] image = stream.toByteArray();
-        bitmap.recycle();
-        DBHistory db = new DBHistory(mContext);
-        db.addImageHistory(new History(id, String.valueOf(calendar), image));
+        //bitmap.recycle();
+        new DBHistory(mContext).addImageHistory(new History(id, image));
     }
 }

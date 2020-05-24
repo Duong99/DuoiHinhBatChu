@@ -1,4 +1,4 @@
-package com.example.duoihinhbatchu.main;
+package com.example.duoihinhbatchu.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

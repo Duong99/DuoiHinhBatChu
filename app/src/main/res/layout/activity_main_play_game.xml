@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/bg_game_play"
     android:layout_height="match_parent"
-    tools:context=".main.MainPlayGameActivity">
+    tools:context=".activity.MainPlayGameActivity">
 
     <ImageView
         android:layout_marginLeft="22dp"
@@ -63,9 +63,8 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:onClick="onClickBoQua"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:text="Bỏ Qua"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
@@ -73,7 +72,7 @@
         android:layout_below="@id/imvbg_avatar"
         android:background="@drawable/bg_next"
         android:layout_width="150dp"
-        android:layout_height="50dp" />
+        android:layout_height="40dp" />
 
     <ImageView
         android:id="@+id/imvPlay"
@@ -85,17 +84,44 @@
         android:layout_height="175dp" />
 
     <Button
-        android:onClick="onClickCauTiep"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="Câu Tiếp"
         android:layout_marginTop="125dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/btnCauTiep"
         android:layout_below="@id/imvPlay"
         android:background="@drawable/bg_next"
-        android:layout_width="125dp"
-        android:layout_height="40dp" />
+        android:layout_width="100dp"
+        android:layout_height="35dp" />
+
+    <Button
+        android:layout_toLeftOf="@id/btnCauTiep"
+        android:layout_alignParentLeft="true"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:text="Screenshot"
+        android:layout_marginTop="125dp"
+        android:id="@+id/btnScreenshot"
+        android:layout_below="@id/imvPlay"
+        android:background="@drawable/bg_next"
+        android:layout_width="100dp"
+        android:layout_height="35dp" />
+
+    <Button
+        android:layout_alignParentRight="true"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:text="Giải Nghĩa"
+        android:layout_marginTop="125dp"
+        android:layout_toRightOf="@id/btnCauTiep"
+        android:id="@+id/btnExplain"
+        android:layout_below="@id/imvPlay"
+        android:background="@drawable/bg_next"
+        android:layout_width="100dp"
+        android:layout_height="35dp" />
 
     <ImageView
         android:layout_marginTop="5dp"

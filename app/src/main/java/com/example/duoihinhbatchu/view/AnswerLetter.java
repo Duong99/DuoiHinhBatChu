@@ -6,7 +6,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class AnswerLetter extends AppCompatButton { // Button
+public class AnswerLetter extends AppCompatButton {
     private OnClickAnswer mOnClickAnswer;
     private String mLetter;
     private SuggestLetter mSuggestLetter;
@@ -27,7 +27,7 @@ public class AnswerLetter extends AppCompatButton { // Button
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( AnswerLetter.this.getText() == ""){
+                if(AnswerLetter.this.getText() == ""){
 
                 }else{
                     AnswerLetter.this.setText("");
