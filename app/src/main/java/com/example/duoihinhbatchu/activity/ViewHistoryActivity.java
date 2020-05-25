@@ -68,6 +68,7 @@ public class ViewHistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ViewHistoryActivity.this, ViewPageHistoryActivity.class);
+                intent.putExtra("POSITION", i);
                 startActivity(intent);
             }
         });

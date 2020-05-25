@@ -1,5 +1,6 @@
 package com.example.duoihinhbatchu.activity;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,10 @@ public class ViewPageHistoryActivity extends AppCompatActivity {
         histories = dbHistory.getAllImage();
         adapter = new ViewPagerApdater(histories, this);
         viewPagerHistory.setAdapter(adapter);
+
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("POSITION", -1);
+        viewPagerHistory.setCurrentItem(position);
 
     }
 }

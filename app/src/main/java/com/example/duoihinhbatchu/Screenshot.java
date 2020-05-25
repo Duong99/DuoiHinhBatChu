@@ -56,15 +56,7 @@ public class Screenshot extends AppCompatActivity {
         return bitmap;
     }
 
-    public void addScreenShotInDB(String id, Bitmap bitmap, View rootView){
-        //Bitmap bitmap = getScreenShot(rootView);
-
-        View screenView = rootView.getRootView();
-        screenView.setDrawingCacheEnabled(true);
-        bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-        screenView.setDrawingCacheEnabled(false);
-
-        //Date calendar = Calendar.getInstance().getTime();
+    public void addScreenShotInDB(String id, Bitmap bitmap){
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);

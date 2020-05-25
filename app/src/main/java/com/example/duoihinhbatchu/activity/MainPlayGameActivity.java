@@ -82,7 +82,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtDiem.setText(String.valueOf(diemPlay));
 
         if (idMan == -1){
-            randomQuesion();
+            randomQuestion();
         }else {
             question = myDatabase.getQuestionDB(idMan);
         }
@@ -285,9 +285,26 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                man += 1;
-                randomQuesion();
-                quaCau(question);
+
+                for (SuggestLetter suggestLetter: suggestLetterList){
+                    suggestLetter.setEnabled(false);  // Không cho bấm vào button suggestLetter nữa
+                }
+
+                btnBoQua.setVisibility(View.INVISIBLE);
+                showOffBtn(View.VISIBLE);
+
+                txtDiem.setEnabled(false);
+                man ++;
+
+                for (int i=0; i<question.getContent().length(); i++){
+                    answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
+                    answerLetterList.get(i).setEnabled(false);
+                }
+
+//                for (AnswerLetter answerLetter : answerLetterList) {
+//                    answerLetter.setEnabled(false);
+//                }
+
             }
         });
 
@@ -369,7 +386,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     @Override
     public void onBackPressed() {
         if (btnCauTiep.getVisibility() == View.VISIBLE){
-            randomQuesion();
+            randomQuestion();
         }
         saveLevel();
         super.onBackPressed();
@@ -378,7 +395,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     @Override
     protected void onDestroy() {
         if (btnCauTiep.getVisibility() == View.VISIBLE){
-            randomQuesion();
+            randomQuestion();
         }
         saveLevel();
         super.onDestroy();
@@ -388,10 +405,11 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnBoQua:
+
                 dialogBoQua();
                 break;
             case R.id.btnCauTiep:
-                randomQuesion();
+                randomQuestion();
                 quaCau(question);
                 break;
             case R.id.btnScreenshot:
@@ -414,12 +432,13 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        screen.addScreenShotInDB(String.valueOf(question.getId()), bitmap, rootView);
-                        Toast.makeText(MainPlayGameActivity.this, "Save Successfully",
-                                Toast.LENGTH_SHORT).show();
+                        screen.addScreenShotInDB(String.valueOf(question.getId()), bitmap);
                         showOffBtn(View.VISIBLE);
                         btnScreenshot.setVisibility(View.INVISIBLE);
                         dialog.cancel();
+
+                        Toast.makeText(MainPlayGameActivity.this, "Save Successfully",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -439,7 +458,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         }
     }
 
-    private void randomQuesion(){
+    private void randomQuestion(){
         question = raq.returnQuestion();
     }
 }
