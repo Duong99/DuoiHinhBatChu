@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 
 public class AnswerLetter extends AppCompatButton {
     private OnClickAnswer mOnClickAnswer;
@@ -21,8 +22,8 @@ public class AnswerLetter extends AppCompatButton {
     }
 
     private void init(final String letter, final OnClickAnswer onClickAnswer){
-        mOnClickAnswer = onClickAnswer;
-        mLetter = letter;
+        this.mOnClickAnswer = onClickAnswer;
+        this.mLetter = letter;
 
         setOnClickListener(new OnClickListener() {
             @Override

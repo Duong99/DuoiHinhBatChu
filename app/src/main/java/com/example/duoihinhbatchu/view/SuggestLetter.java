@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class SuggestLetter extends AppCompatButton {
-    OnClickSuggestLetter mOnClickSuggestLetter;
+    private OnClickSuggestLetter mOnClickSuggestLetter;
 
     public SuggestLetter(Context context, OnClickSuggestLetter onClickSuggestLetter) {
         super(context);

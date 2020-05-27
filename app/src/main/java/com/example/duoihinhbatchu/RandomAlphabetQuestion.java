@@ -1,6 +1,5 @@
 package com.example.duoihinhbatchu;
 
-import android.content.ContentValues;
 import android.content.Context;
 
 import com.example.duoihinhbatchu.database.MyDatabase;
@@ -13,14 +12,15 @@ import java.util.Random;
 
 public class RandomAlphabetQuestion {
     private Context mContext;
+
     public RandomAlphabetQuestion(Context context){
         this.mContext = context;
     }
 
-    public List<String> returnTwentyAlphabet(Question question, Context context){
+    public List<String> returnTwentyAlphabet(Question question){
         List<String> twentyAlphabet = new ArrayList<>();
 
-        String[] nameListAlphabet = context.getResources().getStringArray(R.array.array_alphabet_english);
+        String[] nameListAlphabet = mContext.getResources().getStringArray(R.array.array_alphabet_english);
         List<String> twentySixAlphabet = new ArrayList<>(Arrays.asList(nameListAlphabet));
 
         int position = -1;
@@ -32,12 +32,10 @@ public class RandomAlphabetQuestion {
         }
 
         int length = question.getContent().length();
-        int count = 0;
         String text;
         List<Integer> numberList = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             text = String.valueOf(question.getContent().charAt(i));
-            count = 0;
             position = new Random().nextInt(20);
 
             if (i == 0) {
@@ -45,16 +43,10 @@ public class RandomAlphabetQuestion {
                 twentyAlphabet.add(position, text);
                 numberList.add(position);
             } else {
-                for (int j = 0; j < numberList.size(); j++) {
-                    if (position != numberList.get(j)) {
-                        count++;
-                    } else {
-                        count = 0;
-                        i--;
-                        break;
-                    }
-                }
-                if (count == numberList.size()) {
+                if (numberList.contains(position)){
+                    i--;
+                    break;
+                }else {
                     twentyAlphabet.remove(position);
                     twentyAlphabet.add(position, text);
                     numberList.add(position);

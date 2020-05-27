@@ -71,7 +71,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         init();
 
         raq = new RandomAlphabetQuestion(this);
-        sharedPreferences = getSharedPreferences("MuiscManDiem", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("MusicManDiem", MODE_PRIVATE);
 
         man = sharedPreferences.getInt("man", man);
         idMan = sharedPreferences.getInt("idman", idMan);
@@ -99,11 +99,10 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         frameLayout = findViewById(R.id.frameLayout);
         answerLetterList = new ArrayList<>();
         twentyAlphabet = new ArrayList<>();
-        twentyAlphabet = new RandomAlphabetQuestion(this)
-                .returnTwentyAlphabet(question, this);
+        twentyAlphabet = raq.returnTwentyAlphabet(question);
 
         int length = question.getContent().length(); // Độ dài đáp án
-        int btnWidhtHeight = getResources().getDimensionPixelOffset(R.dimen.width_height_answer);
+        int btnWidthHeight = getResources().getDimensionPixelOffset(R.dimen.width_height_answer);
         int btnMarginLeft = getResources().getDimensionPixelOffset(R.dimen.margin_left);
         int btnMarginTop = getResources().getDimensionPixelOffset(R.dimen.margin_top);
         int widthScreen = getResources().getDisplayMetrics().widthPixels;
@@ -116,7 +115,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             btnAnswer = new AnswerLetter(this, String.valueOf(question.getContent().charAt(i)), this);
 
             FrameLayout.LayoutParams layoutParams = new
-                    FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
+                    FrameLayout.LayoutParams(btnWidthHeight, btnWidthHeight);
 
             answerLetterList.add(btnAnswer);
 
@@ -125,25 +124,21 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             if (i < 8) {
                 int lengthText = length > NUMBER_O_ANSWER_IN_LINE ? NUMBER_O_ANSWER_IN_LINE : length;
 
-                marginScreenLeft = (widthScreen - (btnWidhtHeight * lengthText + btnMarginLeft * (length - 1))) / 2
-                        + (btnMarginLeft + btnWidhtHeight) * i;
+                marginScreenLeft = (widthScreen - (btnWidthHeight * lengthText + btnMarginLeft * (length - 1))) / 2
+                        + (btnMarginLeft + btnWidthHeight) * i;
 
                 marginScreenTop = btnMarginTop;
             } else {
                 int lenthText = length - NUMBER_O_ANSWER_IN_LINE;
 
-                marginScreenLeft = (widthScreen - (lenthText * btnWidhtHeight + btnMarginLeft * (lenthText - 1))) / 2
-                        + (btnMarginLeft + btnWidhtHeight) * (i - 8);
+                marginScreenLeft = (widthScreen - (lenthText * btnWidthHeight + btnMarginLeft * (lenthText - 1))) / 2
+                        + (btnMarginLeft + btnWidthHeight) * (i - 8);
 
-                marginScreenTop = btnMarginTop + btnWidhtHeight + btnMarginTop;
+                marginScreenTop = btnMarginTop + btnWidthHeight + btnMarginTop;
             }
 
             layoutParams.setMargins(marginScreenLeft, marginScreenTop, 0, 0);
             frameLayout.addView(btnAnswer, layoutParams);
-        }
-
-        for(AnswerLetter answerLetter : answerLetterList){
-            answerLetter.setVisibility(View.VISIBLE);
         }
 
         // Tạo nút gợi ý đáp án trả lời
@@ -151,7 +146,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         int btnWidthHeightSuggest = getResources().getDimensionPixelOffset(R.dimen.width_height_suggest);
         for (int i = 0; i < MAX_NUMBER_O_IN_SUGGEST; i++) {
             SuggestLetter btn = new SuggestLetter(this, this);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(btnWidhtHeight, btnWidhtHeight);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(btnWidthHeight, btnWidthHeight);
             suggestLetterList.add(btn);
             btn.setText(twentyAlphabet.get(i));
 
@@ -162,27 +157,24 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                         (btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE))) / 2 +
                         (btnMarginLeft + btnWidthHeightSuggest) * i;
 
-                marginScreenTop = btnMarginTop * 3 + btnWidhtHeight * 3 + 10;
+                marginScreenTop = btnMarginTop * 3 + btnWidthHeight * 3 + 10;
             } else {
                 marginScreenLeft = (widthScreen - ((NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft - 1) +
                         (btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE))) / 2 +
                         (btnMarginLeft + btnWidthHeightSuggest) * (i - 10);
 
-                marginScreenTop = btnMarginTop * 4 + btnWidhtHeight * 3 + btnWidthHeightSuggest ;
+                marginScreenTop = btnMarginTop * 4 + btnWidthHeight * 3 + btnWidthHeightSuggest ;
             }
 
             layoutParams.setMargins(marginScreenLeft, marginScreenTop, 0, 0);
             frameLayout.addView(btn, layoutParams);
-        }
-
-        for(SuggestLetter suggestLetter : suggestLetterList){
-            suggestLetter.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onClickAnswer(SuggestLetter suggestLetter) {
         // Thay đổi backgound button khi kích vào list button câu trả lời
+
         for (AnswerLetter answerLetter : answerLetterList) {
             answerLetter.setBackgroundResource(R.drawable.ic_anwser);
         }
@@ -190,6 +182,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         for (SuggestLetter suggestLetter1: suggestLetterList){
             suggestLetter1.setEnabled(true);
         }
+
         suggestLetter.setVisibility(View.VISIBLE);
     }
 
@@ -242,6 +235,11 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtDiem.setEnabled(true);
         txtMan.setText(String.valueOf(man));
         if (question == null){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("idman", -1);
+            editor.putInt("diem", 10);
+            editor.putInt("man", 1);
+            editor.commit();
             Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
             startActivity(intent);
         }else {
@@ -254,13 +252,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             for(int i=0; i<answerLetterList.size(); i++){
                 // Hiện thị chữ cái gợi ý ra
                 if(answerLetterList.get(i).getText() == ""){
-                    answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
+                    //answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
                     answerLetterList.get(i).setTextColor(Color.BLACK);
                     answerLetterList.get(i).setEnabled(false);
 
                     // Tìm chưa cái gợi ý ở suggestLetterList rồi ẩn nói đi
                     for(int j=0; j<suggestLetterList.size(); j++){
                         if(suggestLetterList.get(j).getText().toString().equals(String.valueOf(question.getContent().charAt(i)))){
+
                             suggestLetterList.get(j).setVisibility(View.INVISIBLE);
                             answerLetterList.get(i).setAnswer(suggestLetterList.get(j)); // Thêm vào list câu trả lời
 
@@ -301,10 +300,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                     answerLetterList.get(i).setEnabled(false);
                 }
 
-//                for (AnswerLetter answerLetter : answerLetterList) {
-//                    answerLetter.setEnabled(false);
-//                }
-
             }
         });
 
@@ -336,13 +331,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
             String answerThey = "";
 
-            for (int i = 0; i < answerLetterList.size(); i++) {
-                answerThey += answerLetterList.get(i).getText();
+            for (AnswerLetter answerLetter : answerLetterList) {
+                answerThey += answerLetter.getText();
             }
 
             if (answerThey.equals(question.getContent())) {
                 btnBoQua.setVisibility(View.INVISIBLE);
                 showOffBtn(View.VISIBLE);
+
                 if (music){
                     new PlayMusic(this, R.raw.dung);
                 }
@@ -366,7 +362,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                     answerFalse.setBackgroundResource(R.drawable.ic_tile_false);
                 }
 
-                //btnAnswer.setBackgroundResource(R.drawable.ic_tile_false);
                 if (music){
                     new PlayMusic(this, R.raw.sai);
                 }
@@ -405,7 +400,6 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnBoQua:
-
                 dialogBoQua();
                 break;
             case R.id.btnCauTiep:

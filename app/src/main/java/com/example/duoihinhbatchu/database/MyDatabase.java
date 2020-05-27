@@ -24,7 +24,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     private Context context;
     private String DB_PATH = "data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
     private final static String DB_NAME ="dhbc.db";
-    private final static String TABLE_QUESTION = "Question";
+    private final static String TABLE_QUESTION = "question";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
 
@@ -32,9 +32,9 @@ public class MyDatabase extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DATABASE_VERSION);
         this.context = context;
 
-        boolean dbexis = checkdatabase();
+        boolean dbExist = checkDatabase();
 
-        if(!dbexis){
+        if(!dbExist){
             System.out.println("Database doesn't exist!");
             createDatabase();
         }
@@ -51,6 +51,18 @@ public class MyDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(question.getId())});
         db.close();
     }
+
+    public void updateQuestionPlayAgain(){
+        db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("ok", 0);
+        db.update(TABLE_QUESTION, values, "ok = ?",
+                new String[]{String.valueOf(1)});
+        db.close();
+    }
+
+
 
     public ArrayList<Question> getQuestionOk(int ok){
         db = this.getReadableDatabase();
@@ -92,14 +104,14 @@ public class MyDatabase extends SQLiteOpenHelper {
         return question;
     }
 
-    private boolean checkdatabase() {
+    private boolean checkDatabase() {
         boolean checkdb = false;
         try{
             String myPath = DB_PATH + DB_NAME;
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
         }catch (SQLException e){
-            System.out.println("Database doesn's exist");
+            System.out.println("Database doesn't exist");
         }
         return checkdb;
     }
@@ -112,12 +124,10 @@ public class MyDatabase extends SQLiteOpenHelper {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void copyDatabase() throws IOException {
         db = this.getWritableDatabase();
-        AssetManager dirPath = context.getAssets();
         InputStream myInput = context.getAssets().open("databases/" + DB_NAME);
         File file = new File((DB_PATH));
         file.mkdirs();

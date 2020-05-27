@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:layout_below="@+id/imv"
         android:textSize="24sp"
-        android:text="Chơi Ngay"
+        android:text="Play"
         android:layout_width="200dp"
         android:layout_height="60dp" />
 
@@ -37,7 +37,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/btnPlay"
         android:textSize="24sp"
-        android:text="Tắt Nhạc"
+        android:text="Off Music"
         android:layout_width="200dp"
         android:layout_height="60dp" />
 
