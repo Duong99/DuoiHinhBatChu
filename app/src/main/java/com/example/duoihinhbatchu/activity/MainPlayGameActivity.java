@@ -112,31 +112,25 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         // Tạo nút cho câu trả lời
         for (int i = 0; i < length; i++) {
-            btnAnswer = new AnswerLetter(this, String.valueOf(question.getContent().charAt(i)), this);
-
+            btnAnswer = new AnswerLetter(this, this);
             FrameLayout.LayoutParams layoutParams = new
                     FrameLayout.LayoutParams(btnWidthHeight, btnWidthHeight);
-
             answerLetterList.add(btnAnswer);
-
             btnAnswer.setTextColor(Color.BLUE);
             btnAnswer.setBackgroundResource(R.drawable.ic_anwser);
             if (i < 8) {
                 int lengthText = length > NUMBER_O_ANSWER_IN_LINE ? NUMBER_O_ANSWER_IN_LINE : length;
-
-                marginScreenLeft = (widthScreen - (btnWidthHeight * lengthText + btnMarginLeft * (length - 1))) / 2
+                int allWidth = btnWidthHeight * lengthText + btnMarginLeft * (length - 1);
+                marginScreenLeft = (widthScreen - allWidth) / 2
                         + (btnMarginLeft + btnWidthHeight) * i;
-
                 marginScreenTop = btnMarginTop;
             } else {
-                int lenthText = length - NUMBER_O_ANSWER_IN_LINE;
-
-                marginScreenLeft = (widthScreen - (lenthText * btnWidthHeight + btnMarginLeft * (lenthText - 1))) / 2
+                int lengthText = length - NUMBER_O_ANSWER_IN_LINE;
+                int allWith = lengthText * btnWidthHeight + btnMarginLeft * (lengthText - 1);
+                marginScreenLeft = (widthScreen - allWith) / 2
                         + (btnMarginLeft + btnWidthHeight) * (i - 8);
-
                 marginScreenTop = btnMarginTop + btnWidthHeight + btnMarginTop;
             }
-
             layoutParams.setMargins(marginScreenLeft, marginScreenTop, 0, 0);
             frameLayout.addView(btnAnswer, layoutParams);
         }
@@ -153,14 +147,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             btn.setTextColor(Color.GREEN);
             btn.setBackgroundResource(R.drawable.ic_tile_hover);
             if (i < 10) {
-                marginScreenLeft = (widthScreen - ((NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft - 1) +
-                        (btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE))) / 2 +
+                int allWidth = NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft + btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE;
+                marginScreenLeft = (widthScreen - allWidth) / 2 +
                         (btnMarginLeft + btnWidthHeightSuggest) * i;
 
                 marginScreenTop = btnMarginTop * 3 + btnWidthHeight * 3 + 10;
             } else {
-                marginScreenLeft = (widthScreen - ((NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft - 1) +
-                        (btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE))) / 2 +
+                int allWidth = NUMBER_0_SUGGEST_IN_LINE * btnMarginLeft + btnWidthHeightSuggest * NUMBER_0_SUGGEST_IN_LINE;
+                marginScreenLeft = (widthScreen - allWidth) / 2 +
                         (btnMarginLeft + btnWidthHeightSuggest) * (i - 10);
 
                 marginScreenTop = btnMarginTop * 4 + btnWidthHeight * 3 + btnWidthHeightSuggest ;
@@ -237,7 +231,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         if (question == null){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("idman", -1);
-            editor.putInt("diem", 10);
+            editor.putInt("diem", 20);
             editor.putInt("man", 1);
             editor.commit();
             Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
@@ -252,18 +246,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             for(int i=0; i<answerLetterList.size(); i++){
                 // Hiện thị chữ cái gợi ý ra
                 if(answerLetterList.get(i).getText() == ""){
-                    //answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
                     answerLetterList.get(i).setTextColor(Color.BLACK);
                     answerLetterList.get(i).setEnabled(false);
 
-                    // Tìm chưa cái gợi ý ở suggestLetterList rồi ẩn nói đi
                     for(int j=0; j<suggestLetterList.size(); j++){
                         if(suggestLetterList.get(j).getText().toString().equals(String.valueOf(question.getContent().charAt(i)))){
-
                             suggestLetterList.get(j).setVisibility(View.INVISIBLE);
                             answerLetterList.get(i).setAnswer(suggestLetterList.get(j)); // Thêm vào list câu trả lời
-
-                            diemPlay += -5;
+                            diemPlay -= 5;
                             txtDiem.setText(String.valueOf(diemPlay));
                             break;
                         }

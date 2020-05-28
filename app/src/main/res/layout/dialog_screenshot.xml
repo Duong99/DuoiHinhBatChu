@@ -12,6 +12,9 @@
         android:layout_height="match_parent" />
 
     <Button
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="#FF0000"
         android:id="@+id/btnCancelScreenshot"
         android:layout_alignParentBottom="true"
         android:text="Cancel"
@@ -19,6 +22,9 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="#88FF00"
         android:id="@+id/btnSaveScreenshot"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

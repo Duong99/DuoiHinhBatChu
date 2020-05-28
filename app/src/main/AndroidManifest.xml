@@ -14,8 +14,12 @@
         <activity android:name=".activity.ViewPageHistoryActivity"
             android:theme="@style/noactionbar"></activity>
         <activity
-            android:name=".activity.ViewHistoryActivity" />
-        <activity android:name=".activity.Winner" />
+            android:name=".activity.ViewHistoryActivity"
+            android:theme="@style/noactionbar"></activity>
+
+        <activity android:name=".activity.Winner"
+            android:theme="@style/noactionbar"></activity>
+
         <activity
             android:name=".activity.MainPlayGameActivity"
             android:label="@string/app_name"

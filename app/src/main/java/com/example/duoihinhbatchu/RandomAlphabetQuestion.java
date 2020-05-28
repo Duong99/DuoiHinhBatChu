@@ -23,7 +23,7 @@ public class RandomAlphabetQuestion {
         String[] nameListAlphabet = mContext.getResources().getStringArray(R.array.array_alphabet_english);
         List<String> twentySixAlphabet = new ArrayList<>(Arrays.asList(nameListAlphabet));
 
-        int position = -1;
+        int position;
 
         // Ramdom ra 20 chữ cái ngẫu nhiên trong list chữa cái anphabestList
         for (int i = 0; i < 20; i++) {
@@ -32,10 +32,9 @@ public class RandomAlphabetQuestion {
         }
 
         int length = question.getContent().length();
-        String text;
         List<Integer> numberList = new ArrayList<>();
         for (int i = 0; i < length; i++) {
-            text = String.valueOf(question.getContent().charAt(i));
+            String text = String.valueOf(question.getContent().charAt(i));
             position = new Random().nextInt(20);
 
             if (i == 0) {
@@ -45,7 +44,6 @@ public class RandomAlphabetQuestion {
             } else {
                 if (numberList.contains(position)){
                     i--;
-                    break;
                 }else {
                     twentyAlphabet.remove(position);
                     twentyAlphabet.add(position, text);

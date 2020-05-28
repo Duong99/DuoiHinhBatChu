@@ -9,21 +9,19 @@ import android.widget.Button;
 
 public class AnswerLetter extends AppCompatButton {
     private OnClickAnswer mOnClickAnswer;
-    private String mLetter;
     private SuggestLetter mSuggestLetter;
 
-    public AnswerLetter(Context context, String letter, OnClickAnswer onClickAnswer) {
+    public AnswerLetter(Context context,  OnClickAnswer onClickAnswer) {
         super(context);
-        init(letter, onClickAnswer);
+        init(onClickAnswer);
     }
 
     public interface OnClickAnswer{
         void onClickAnswer(SuggestLetter suggestLetter);
     }
 
-    private void init(final String letter, final OnClickAnswer onClickAnswer){
+    private void init( final OnClickAnswer onClickAnswer){
         this.mOnClickAnswer = onClickAnswer;
-        this.mLetter = letter;
 
         setOnClickListener(new OnClickListener() {
             @Override
