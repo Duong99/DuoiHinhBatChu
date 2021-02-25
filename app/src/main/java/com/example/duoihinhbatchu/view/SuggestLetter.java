@@ -13,11 +13,11 @@ public class SuggestLetter extends AppCompatButton {
         init(onClickSuggestLetter);
     }
 
-    public interface OnClickSuggestLetter{
+    public interface OnClickSuggestLetter {
         void onClickSuggest(SuggestLetter suggestLetter);
     }
 
-    private void init(final OnClickSuggestLetter onClickSuggestLetter){
+    private void init(final OnClickSuggestLetter onClickSuggestLetter) {
         this.mOnClickSuggestLetter = onClickSuggestLetter;
         setOnClickListener(new OnClickListener() {
             @Override

@@ -24,10 +24,10 @@ public class Screenshot extends AppCompatActivity {
     private final static int CODE_PERMISSION = 111;
     private Context mContext;
 
-    public Screenshot(Context context){
+    public Screenshot(Context context) {
         this.mContext = context;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 // Permission denied request it
                 ActivityCompat.requestPermissions((Activity) context,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_PERMISSION);
@@ -37,10 +37,10 @@ public class Screenshot extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == CODE_PERMISSION){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CODE_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(this, "Permission not Granted", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -48,7 +48,7 @@ public class Screenshot extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public Bitmap getScreenShot(View view){
+    public Bitmap getScreenShot(View view) {
         View screenView = view.getRootView();
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
@@ -56,12 +56,11 @@ public class Screenshot extends AppCompatActivity {
         return bitmap;
     }
 
-    public void addScreenShotInDB(String id, Bitmap bitmap){
+    public void addScreenShotInDB(String id, Bitmap bitmap, String name) {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] image = stream.toByteArray();
-        //bitmap.recycle();
-        new DBHistory(mContext).addImageHistory(new History(id, image));
+        new DBHistory(mContext).addImageHistory(new History(id, image, name));
     }
 }

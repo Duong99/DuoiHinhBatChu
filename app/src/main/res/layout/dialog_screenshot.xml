@@ -5,11 +5,20 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_marginBottom="10dp"
-        android:layout_above="@id/btnSaveScreenshot"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@id/edtName"
         android:id="@+id/imvScreenshot"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <EditText
+        android:textSize="16sp"
+        android:hint="Enter Name"
+        android:layout_margin="5dp"
+        android:id="@+id/edtName"
+        android:layout_above="@id/btnSaveScreenshot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:textStyle="bold"

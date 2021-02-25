@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.duoihinhbatchu.model.Question;
 
 public class ShowDialogExplain {
-    public ShowDialogExplain(Context context, Question question){
+    public ShowDialogExplain(Context context, Question question) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.giai_nghia);

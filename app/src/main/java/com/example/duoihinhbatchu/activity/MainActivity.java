@@ -28,16 +28,17 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
-        btnMusicPlay = findViewById(R.id.btnMusicPlay);;
+        btnMusicPlay = findViewById(R.id.btnMusicPlay);
+        ;
 
         sharedPreferences = getSharedPreferences("MusicManDiem", MODE_PRIVATE);
 
         music = sharedPreferences.getBoolean("music", true);
 
-        if (music){
+        if (music) {
             btnMusicPlay.setText("Off Music");
             new PlayMusic(this, R.raw.batdau);
-        }else {
+        } else {
             btnMusicPlay.setText("On Music");
         }
     }
@@ -48,24 +49,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickMusicPlay(View view) {
-        if(btnMusicPlay.getText().equals("Off Music")){
+        if (btnMusicPlay.getText().equals("Off Music")) {
             btnMusicPlay.setText("On Music");
             music = false;
-            luuOnOffMusic();
-        }else {
+        } else {
             btnMusicPlay.setText("Off Music");
             music = true;
             new PlayMusic(this, R.raw.batdau);
-            luuOnOffMusic();
         }
+        luuOnOffMusic();
     }
 
-    public void onClickViewHistory(View view){
+    public void onClickViewHistory(View view) {
         Intent intent = new Intent(MainActivity.this, ViewHistoryActivity.class);
         startActivity(intent);
     }
 
-    private void luuOnOffMusic(){
+    private void luuOnOffMusic() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("music", music);
         editor.commit();

@@ -6,7 +6,8 @@ public class Question {
     private String giaiNghia;
     private int ok;
 
-    public Question(){}
+    public Question() {
+    }
 
     public Question(int id, String content, String giaiNghia, int ok) {
         this.id = id;

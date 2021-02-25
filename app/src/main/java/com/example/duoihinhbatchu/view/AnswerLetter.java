@@ -11,24 +11,24 @@ public class AnswerLetter extends AppCompatButton {
     private OnClickAnswer mOnClickAnswer;
     private SuggestLetter mSuggestLetter;
 
-    public AnswerLetter(Context context,  OnClickAnswer onClickAnswer) {
+    public AnswerLetter(Context context, OnClickAnswer onClickAnswer) {
         super(context);
         init(onClickAnswer);
     }
 
-    public interface OnClickAnswer{
+    public interface OnClickAnswer {
         void onClickAnswer(SuggestLetter suggestLetter);
     }
 
-    private void init( final OnClickAnswer onClickAnswer){
+    private void init(final OnClickAnswer onClickAnswer) {
         this.mOnClickAnswer = onClickAnswer;
 
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AnswerLetter.this.getText() == ""){
+                if (AnswerLetter.this.getText() == "") {
 
-                }else{
+                } else {
                     AnswerLetter.this.setText("");
                     onClickAnswer.onClickAnswer(mSuggestLetter);
                     mSuggestLetter = null;
@@ -37,11 +37,11 @@ public class AnswerLetter extends AppCompatButton {
         });
     }
 
-    public boolean isFill(){
+    public boolean isFill() {
         return mSuggestLetter != null;
     }
 
-    public void setAnswer(SuggestLetter suggestLetter){
+    public void setAnswer(SuggestLetter suggestLetter) {
         mSuggestLetter = suggestLetter;
         setText(suggestLetter.getText());
     }

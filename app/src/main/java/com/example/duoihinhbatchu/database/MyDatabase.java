@@ -23,27 +23,27 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private String DB_PATH = "data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
-    private final static String DB_NAME ="dhbc.db";
+    private final static String DB_NAME = "dhbc.db";
     private final static String TABLE_QUESTION = "question";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
 
-    public MyDatabase(Context context){
+    public MyDatabase(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
         this.context = context;
 
         boolean dbExist = checkDatabase();
 
-        if(!dbExist){
+        if (!dbExist) {
             System.out.println("Database doesn't exist!");
             createDatabase();
         }
     }
 
-    public void updateQuestion(Question question){
+    public void updateQuestion(Question question) {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("id" , question.getId());
+        values.put("id", question.getId());
         values.put("content", question.getContent());
         values.put("giainghia", question.getGiaiNghia());
         values.put("ok", 1);
@@ -52,7 +52,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateQuestionPlayAgain(){
+    public void updateQuestionPlayAgain() {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -63,42 +63,41 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
 
-
-    public ArrayList<Question> getQuestionOk(int ok){
+    public ArrayList<Question> getQuestionOk(int ok) {
         db = this.getReadableDatabase();
         ArrayList<Question> questions = new ArrayList<>();
         String select = "SELECT * FROM question where ok = " + ok;
         Cursor cursor = db.rawQuery(select, null);
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 Question question = new Question(cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3));
                 questions.add(question);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
         return questions;
     }
 
-    public Question getQuestionDB(int id){
+    public Question getQuestionDB(int id) {
         db = this.getReadableDatabase();
 
         Question question = null;
 
-        String select = "SELECT * FROM "+ TABLE_QUESTION + " where id = " + id;
+        String select = "SELECT * FROM " + TABLE_QUESTION + " where id = " + id;
 
         Cursor cursor = db.rawQuery(select, null);
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 question = new Question(cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3));
 
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
         return question;
@@ -106,11 +105,11 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     private boolean checkDatabase() {
         boolean checkdb = false;
-        try{
+        try {
             String myPath = DB_PATH + DB_NAME;
             File dbFile = new File(myPath);
             checkdb = dbFile.exists();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Database doesn't exist");
         }
         return checkdb;
@@ -121,7 +120,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
         try {
             copyDatabase();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -137,7 +136,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         byte[] buffer = new byte[1024];
         int length;
 
-        while ((length = myInput.read(buffer))>0){
+        while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
 
@@ -147,8 +146,10 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {}
+    public void onCreate(SQLiteDatabase db) {
+    }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 }

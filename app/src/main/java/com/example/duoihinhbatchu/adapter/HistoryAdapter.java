@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.duoihinhbatchu.R;
 import com.example.duoihinhbatchu.model.History;
@@ -41,32 +42,34 @@ public class HistoryAdapter extends BaseAdapter {
         return i;
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         ImageView imvHistoryVictory;
+        TextView txtName;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        final ViewHolder holder ;
+        final ViewHolder holder;
 
-        if (view == null){
+        if (view == null) {
             holder = new ViewHolder();
             view = LayoutInflater.from(context).inflate(R.layout.gridview_list_history, null);
             holder.imvHistoryVictory = view.findViewById(R.id.imvHistoryVictory);
+            holder.txtName = view.findViewById(R.id.txtName);
             view.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) view.getTag();
 
             final History history = histories.get(i);
             ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(history.getImage());
             Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
             holder.imvHistoryVictory.setImageBitmap(bitmap);
-
+            holder.txtName.setText(history.getName());
         }
         return view;
     }
 
-    public void removePositionData(int position){
+    public void removePositionData(int position) {
         histories.remove(position);
     }
 }

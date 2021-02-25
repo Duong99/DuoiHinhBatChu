@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,9 +82,9 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtMan.setText(String.valueOf(man));
         txtDiem.setText(String.valueOf(diemPlay));
 
-        if (idMan == -1){
+        if (idMan == -1) {
             randomQuestion();
-        }else {
+        } else {
             question = myDatabase.getQuestionDB(idMan);
         }
 
@@ -157,7 +158,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 marginScreenLeft = (widthScreen - allWidth) / 2 +
                         (btnMarginLeft + btnWidthHeightSuggest) * (i - 10);
 
-                marginScreenTop = btnMarginTop * 4 + btnWidthHeight * 3 + btnWidthHeightSuggest ;
+                marginScreenTop = btnMarginTop * 4 + btnWidthHeight * 3 + btnWidthHeightSuggest;
             }
 
             layoutParams.setMargins(marginScreenLeft, marginScreenTop, 0, 0);
@@ -168,15 +169,12 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     @Override
     public void onClickAnswer(SuggestLetter suggestLetter) {
         // Thay đổi backgound button khi kích vào list button câu trả lời
-
         for (AnswerLetter answerLetter : answerLetterList) {
             answerLetter.setBackgroundResource(R.drawable.ic_anwser);
         }
-
-        for (SuggestLetter suggestLetter1: suggestLetterList){
+        for (SuggestLetter suggestLetter1 : suggestLetterList) {
             suggestLetter1.setEnabled(true);
         }
-
         suggestLetter.setVisibility(View.VISIBLE);
     }
 
@@ -194,14 +192,14 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
     }
 
     private void init() {
-        txtDiem =  findViewById(R.id.txtDiemPlay);
-        txtMan=  findViewById(R.id.txtDiemHelp);
-        imv =  findViewById(R.id.imvPlay);
+        txtDiem = findViewById(R.id.txtDiemPlay);
+        txtMan = findViewById(R.id.txtDiemHelp);
+        imv = findViewById(R.id.imvPlay);
 
-        btnBoQua =  findViewById(R.id.btnBoQua);
-        btnCauTiep =  findViewById(R.id.btnCauTiep);
-        btnExplain =  findViewById(R.id.btnExplain);
-        btnScreenshot =  findViewById(R.id.btnScreenshot);
+        btnBoQua = findViewById(R.id.btnBoQua);
+        btnCauTiep = findViewById(R.id.btnCauTiep);
+        btnExplain = findViewById(R.id.btnExplain);
+        btnScreenshot = findViewById(R.id.btnScreenshot);
 
         btnCauTiep.setOnClickListener(this);
         btnBoQua.setOnClickListener(this);
@@ -216,7 +214,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         txtMan.setText(String.valueOf(idMan));
     }
 
-    private void showOffBtn(int visibility){
+    private void showOffBtn(int visibility) {
         btnCauTiep.setVisibility(visibility);
         btnScreenshot.setVisibility(visibility);
         btnExplain.setVisibility(visibility);
@@ -228,7 +226,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         btnBoQua.setVisibility(View.VISIBLE);
         txtDiem.setEnabled(true);
         txtMan.setText(String.valueOf(man));
-        if (question == null){
+        if (question == null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("idman", -1);
             editor.putInt("diem", 20);
@@ -236,21 +234,21 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             editor.commit();
             Intent intent = new Intent(MainPlayGameActivity.this, Winner.class);
             startActivity(intent);
-        }else {
+        } else {
             createButtonFrame(question);
         }
     }
 
     public void onclickDiem(View view) {
-        if(diemPlay > 0) {
-            for(int i=0; i<answerLetterList.size(); i++){
+        if (diemPlay > 0) {
+            for (int i = 0; i < answerLetterList.size(); i++) {
                 // Hiện thị chữ cái gợi ý ra
-                if(answerLetterList.get(i).getText() == ""){
+                if (answerLetterList.get(i).getText() == "") {
                     answerLetterList.get(i).setTextColor(Color.BLACK);
                     answerLetterList.get(i).setEnabled(false);
-
-                    for(int j=0; j<suggestLetterList.size(); j++){
-                        if(suggestLetterList.get(j).getText().toString().equals(String.valueOf(question.getContent().charAt(i)))){
+                    for (int j = 0; j < suggestLetterList.size(); j++) {
+                        String text = String.valueOf(question.getContent().charAt(i));
+                        if (suggestLetterList.get(j).getText().toString().equals(text)) {
                             suggestLetterList.get(j).setVisibility(View.INVISIBLE);
                             answerLetterList.get(i).setAnswer(suggestLetterList.get(j)); // Thêm vào list câu trả lời
                             diemPlay -= 5;
@@ -265,7 +263,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         checkTrueFalseResult();
     }
 
-    private void dialogBoQua(){
+    private void dialogBoQua() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Xác Nhận");
@@ -275,7 +273,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                for (SuggestLetter suggestLetter: suggestLetterList){
+                for (SuggestLetter suggestLetter : suggestLetterList) {
                     suggestLetter.setEnabled(false);  // Không cho bấm vào button suggestLetter nữa
                 }
 
@@ -283,9 +281,9 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 showOffBtn(View.VISIBLE);
 
                 txtDiem.setEnabled(false);
-                man ++;
+                man++;
 
-                for (int i=0; i<question.getContent().length(); i++){
+                for (int i = 0; i < question.getContent().length(); i++) {
                     answerLetterList.get(i).setText(String.valueOf(question.getContent().charAt(i)));
                     answerLetterList.get(i).setEnabled(false);
                 }
@@ -295,64 +293,54 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {}
+            public void onClick(DialogInterface dialog, int which) {
+            }
         });
 
         builder.show();
     }
 
-    private void checkTrueFalseResult(){
+    private void checkTrueFalseResult() {
         int count = 0;
         //Đếm xem đã điền hết câu trả lời chưa
-        for (AnswerLetter answerLetter : answerLetterList){
+        for (AnswerLetter answerLetter : answerLetterList) {
             if (answerLetter.isFill()) {
                 count++;
-            }else{
+            } else {
                 break;
             }
         }
-
         // Nếu điền hết rồi mới kiểm tra xem đúng hay sai
-        if(count == answerLetterList.size()){
-
-            for (SuggestLetter suggestLetter: suggestLetterList){
+        if (count == answerLetterList.size()) {
+            for (SuggestLetter suggestLetter : suggestLetterList) {
                 suggestLetter.setEnabled(false);  // Không cho bấm vào button suggestLetter nữa
             }
-
             String answerThey = "";
-
             for (AnswerLetter answerLetter : answerLetterList) {
                 answerThey += answerLetter.getText();
             }
-
             if (answerThey.equals(question.getContent())) {
                 btnBoQua.setVisibility(View.INVISIBLE);
                 showOffBtn(View.VISIBLE);
-
-                if (music){
+                if (music) {
                     new PlayMusic(this, R.raw.dung);
                 }
-
                 for (AnswerLetter answerTrue : answerLetterList) {
                     answerTrue.setBackgroundResource(R.drawable.ic_tile_true);
                 }
-
                 Toast.makeText(this, "Đáp án đúng rồi :)", Toast.LENGTH_SHORT).show();
                 diemPlay += 10;
                 txtDiem.setText(String.valueOf(diemPlay));
                 txtDiem.setEnabled(false);
-                man ++;
-
+                man++;
                 for (AnswerLetter answerLetter : answerLetterList) {
                     answerLetter.setEnabled(false);
                 }
-
             } else {
                 for (AnswerLetter answerFalse : answerLetterList) {
                     answerFalse.setBackgroundResource(R.drawable.ic_tile_false);
                 }
-
-                if (music){
+                if (music) {
                     new PlayMusic(this, R.raw.sai);
                 }
                 Toast.makeText(this, "Đáp án sai rồi :(", Toast.LENGTH_SHORT).show();
@@ -360,7 +348,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         }
     }
 
-    private void saveLevel(){
+    private void saveLevel() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("idman", question.getId());
         editor.putInt("diem", diemPlay);
@@ -370,7 +358,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     @Override
     public void onBackPressed() {
-        if (btnCauTiep.getVisibility() == View.VISIBLE){
+        if (btnCauTiep.getVisibility() == View.VISIBLE) {
             randomQuestion();
         }
         saveLevel();
@@ -379,7 +367,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     @Override
     protected void onDestroy() {
-        if (btnCauTiep.getVisibility() == View.VISIBLE){
+        if (btnCauTiep.getVisibility() == View.VISIBLE) {
             randomQuestion();
         }
         saveLevel();
@@ -388,7 +376,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnBoQua:
                 dialogBoQua();
                 break;
@@ -398,10 +386,12 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 break;
             case R.id.btnScreenshot:
                 showOffBtn(View.INVISIBLE);
+
                 final Screenshot screen = new Screenshot(this);
                 final View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-
                 screen.getScreenShot(rootView);
+
+
                 final Dialog dialog = new Dialog(this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_screenshot);
@@ -409,6 +399,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 ImageView imvScreen = dialog.findViewById(R.id.imvScreenshot);
                 Button btnCancel = dialog.findViewById(R.id.btnCancelScreenshot);
                 Button btnSave = dialog.findViewById(R.id.btnSaveScreenshot);
+                final EditText edtName = dialog.findViewById(R.id.edtName);
 
                 final Bitmap bitmap = screen.getScreenShot(rootView);
                 imvScreen.setImageBitmap(bitmap);
@@ -416,13 +407,19 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        screen.addScreenShotInDB(String.valueOf(question.getId()), bitmap);
-                        showOffBtn(View.VISIBLE);
-                        btnScreenshot.setVisibility(View.INVISIBLE);
-                        dialog.cancel();
+                        if (edtName.getText().toString().equals("")) {
+                            Toast.makeText(MainPlayGameActivity.this, "Please enter name", Toast.LENGTH_SHORT).show();
+                            edtName.findFocus();
+                        } else {
+                            screen.addScreenShotInDB(String.valueOf(question.getId()), bitmap, edtName.getText().toString());
+                            showOffBtn(View.VISIBLE);
+                            btnScreenshot.setVisibility(View.INVISIBLE);
+                            dialog.cancel();
 
-                        Toast.makeText(MainPlayGameActivity.this, "Save Successfully",
-                                Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainPlayGameActivity.this, "Save Successfully",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
@@ -442,7 +439,7 @@ public class MainPlayGameActivity extends AppCompatActivity implements AnswerLet
         }
     }
 
-    private void randomQuestion(){
+    private void randomQuestion() {
         question = raq.returnQuestion();
     }
 }
